@@ -7,3 +7,26 @@ export const ROUTES = {
   CART: '/cart',
   CHECKOUT: '/checkout',
 };
+
+export const SEARCH_PARAMS_KEYS = {
+  SORT: 'sort',
+  AVAILABILITY: 'availability',
+  FEATURE: 'feature',
+};
+
+export const SORT_OPTIONS = [
+  { label: 'Latest Arrivals', value: 'latest' },
+  { label: 'Price: High - Low', value: 'highest' },
+  { label: 'Price: Low - High', value: 'lowest' },
+];
+
+export const AVAILABILITY_OPTIONS = [
+  { label: 'In stock', value: 'in' },
+  { label: 'Out of stock', value: 'out' },
+];
+
+export const FEAUTES_OPTIONS = [
+  { label: 'MagSafe compatibility', value: 'magsafe' },
+  { label: 'Wireless charging', value: 'wifi' },
+  { label: 'Shockproof protection', value: 'shockproof' },
+];
