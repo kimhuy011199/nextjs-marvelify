@@ -81,7 +81,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-semibold">{product.name}</h1>
           <p className="text-muted-foreground text-sm">{product.description}</p>
-          <Divider />
           <ProductPrice
             variant="lg"
             price={currentVariant.price}
@@ -129,6 +128,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
             <ProductQuantity
               handleQuantityChange={handleQuantityChange}
               quantity={quantity}
+              className="self-start"
             />
             <Button size={'lg'} type="submit">
               Add to cart

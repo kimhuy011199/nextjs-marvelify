@@ -16,7 +16,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="border border-gray-200 shadow-sm rounded-2xl bg-white transition-all hover:shadow hover:border-gray-300">
       <Link href={`/products/${product.id}`}>
-        <div className="p-6 pb-3 lg:p-10 lg:pt-8 lg:pb-4">
+        <div className="p-6 pb-3 lg:p-10 lg:py-4">
           <Image
             src={product.previewImg}
             width={540}

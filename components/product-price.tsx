@@ -17,18 +17,14 @@ const ProductPrice: React.FC<ProductPriceProps> = ({
     eur: '$',
   };
   const variantClasses = {
-    default: '',
+    default: 'font-semibold',
     lg: 'text-3xl font-bold',
   };
   const priceLabel = `${
     currencySymbol[currency.toLocaleLowerCase()]
   }${price.toFixed(2)}`;
 
-  return (
-    <div className="">
-      <span className={variantClasses[variant]}>{priceLabel}</span>
-    </div>
-  );
+  return <span className={variantClasses[variant]}>{priceLabel}</span>;
 };
 
 export default ProductPrice;
