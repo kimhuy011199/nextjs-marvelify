@@ -17,17 +17,17 @@ const cart = {
       price: 20,
       currency: 'USD',
       previewImg:
-        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1715957329/phone-natural-case-silver-crop_glhktg.jpg',
+        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049345/marvelify/rau45vtlpcbmdfoi6l7s.jpg',
       quantity: 1,
     },
     {
       id: '2',
-      name: 'Spiderman Case',
+      name: 'Ironman Case',
       variant: 'Black',
       price: 30,
       currency: 'USD',
       previewImg:
-        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1715957329/phone-natural-case-silver-crop_glhktg.jpg',
+        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/q2ulvxdmdb0zgshobzew.jpg',
       quantity: 2,
     },
   ],

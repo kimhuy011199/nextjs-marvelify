@@ -12,7 +12,7 @@ const product = {
   currency: 'USD',
   collection: 'Spiderman Collection',
   previewImg:
-    'https://res.cloudinary.com/cloudinaryassets/image/upload/v1715957329/phone-natural-case-silver-crop_glhktg.jpg',
+    'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049345/marvelify/rau45vtlpcbmdfoi6l7s.jpg',
   variants: [
     {
       id: '1',
@@ -20,7 +20,7 @@ const product = {
       price: 20,
       currency: 'USD',
       previewImg:
-        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1715957329/phone-natural-case-silver-crop_glhktg.jpg',
+        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049345/marvelify/rau45vtlpcbmdfoi6l7s.jpg',
     },
     {
       id: '2',
@@ -28,7 +28,7 @@ const product = {
       price: 19,
       currency: 'USD',
       previewImg:
-        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1715957329/phone-natural-case-silver-crop_glhktg.jpg',
+        'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049344/marvelify/a0eopcgdy1ne3ctvur0f.jpg',
     },
   ],
 };
