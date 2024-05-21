@@ -11,16 +11,16 @@ const AccountSidebar: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <div className="min-w-60">
-      <h2 className="font-semibold text-muted-foreground pb-3">
-        Account Setting
-      </h2>
-      <ul className="flex flex-col gap-2">
+    <div className="min-w-60 h-60 border border-gray-200 shadow-sm rounded-2xl bg-white pb-4">
+      <h2 className="font-semibold pt-5 pb-4 px-6 text-lg">Account Setting</h2>
+      <ul className="flex flex-col">
         <li>
           <Link
             className={twMerge(
-              'py-2 px-3 rounded-lg flex items-center gap-3',
-              pathname === ROUTES.ACCOUNT_PROFILE ? 'bg-gray-200' : ''
+              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-gray-100 border-l-2 border-transparent',
+              pathname === ROUTES.ACCOUNT_PROFILE
+                ? 'text-primary border-l-primary'
+                : ''
             )}
             href="/account"
           >
@@ -31,8 +31,10 @@ const AccountSidebar: React.FC = () => {
         <li>
           <Link
             className={twMerge(
-              'py-2 px-3 rounded-lg flex items-center gap-3',
-              pathname === ROUTES.ACCOUNT_ADDRESSES ? 'bg-gray-200' : ''
+              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-gray-100 border-l-2 border-transparent',
+              pathname === ROUTES.ACCOUNT_ADDRESSES
+                ? 'text-primary border-l-primary'
+                : ''
             )}
             href="/account/addresses"
           >
@@ -43,8 +45,10 @@ const AccountSidebar: React.FC = () => {
         <li>
           <Link
             className={twMerge(
-              'py-2 px-3 rounded-lg flex items-center gap-3',
-              pathname === ROUTES.ACCOUNT_ORDERS ? 'bg-gray-200' : ''
+              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-gray-100 border-l-2 border-transparent',
+              pathname === ROUTES.ACCOUNT_ORDERS
+                ? 'text-primary border-l-primary'
+                : ''
             )}
             href="/account/orders"
           >
