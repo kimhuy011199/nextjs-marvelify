@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -18,6 +19,9 @@ import Divider from '@/components/divider';
 import Image from 'next/image';
 import ProductQuantity from '@/components/product-quantity';
 import ProductPrice from '@/components/product-price';
+import { useToast } from '@/components/ui/use-toast';
+import { ToastAction } from '@/components/ui/toast';
+import { ROUTES } from '@/lib/constants';
 
 interface ProductFormProps {
   product: {
@@ -44,6 +48,8 @@ const formSchema = z.object({
 
 const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
   const [quantity, setQuantity] = React.useState(1);
+  const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,6 +69,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
   const onSubmit = () => {
     console.log('currentVariant', currentVariant);
     console.log('quantity', quantity);
+    toast({
+      title: `Added ${product.name}`,
+      description: 'Color: ' + currentVariant.name + ' - Quantity: ' + quantity,
+      action: (
+        <ToastAction
+          altText="Go to cart"
+          onClick={() => router.push(ROUTES.CART)}
+        >
+          Go to Cart
+        </ToastAction>
+      ),
+    });
   };
 
   return (
