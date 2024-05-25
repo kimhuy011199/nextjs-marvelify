@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Divider: React.FC = () => {
+interface DividerProps {
+  className?: string;
+}
+
+const Divider: React.FC<DividerProps> = ({ className }) => {
   return (
-    <div>
+    <div className={className}>
       <hr className="border-t border-gray-200" />
     </div>
   );

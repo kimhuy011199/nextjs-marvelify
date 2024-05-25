@@ -36,7 +36,7 @@ const addresses = [
 const Page: React.FC = () => {
   return (
     <SettingCard>
-      <SettingHeading>Addresses</SettingHeading>
+      <SettingHeading>Your Addresses</SettingHeading>
       <SettingDescription>
         Manage your addresses here. Saving your addresses will make them
         available during checkout.

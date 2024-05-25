@@ -1,13 +1,7 @@
-'use client';
+import React from 'react';
 
-import Footer from '@/components/footer';
-import Header from '@/components/header';
+const Home: React.FC = () => {
+  return <></>;
+};
 
-export default function Home() {
-  return (
-    <>
-      <Header />
-      <Footer />
-    </>
-  );
-}
+export default Home;

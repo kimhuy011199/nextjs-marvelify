@@ -31,7 +31,7 @@ const AccountAddressItem: React.FC<AccountAddressItemProps> = ({ address }) => {
       <SheetTrigger asChild>
         <Button
           variant="outline"
-          className="w-full h-full text-left justify-start items-start text-base py-4 px-6"
+          className="w-full h-full text-left justify-start items-start text-base py-4 px-6 rounded-2xl"
         >
           <div className="text-muted-foreground">
             <p className="font-semibold pb-1 text-foreground">{address.name}</p>

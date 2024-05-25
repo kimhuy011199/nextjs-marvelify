@@ -3,11 +3,7 @@ interface SettingCardProps {
 }
 
 const SettingCard: React.FC<SettingCardProps> = ({ children }) => {
-  return (
-    <div className="border border-gray-200 shadow-sm rounded-2xl bg-white w-full py-5 px-6">
-      {children}
-    </div>
-  );
+  return <div className="">{children}</div>;
 };
 
 interface SettingHeadingProps {
@@ -15,7 +11,7 @@ interface SettingHeadingProps {
 }
 
 const SettingHeading: React.FC<SettingHeadingProps> = ({ children }) => {
-  return <h2 className="font-semibold text-lg">{children}</h2>;
+  return <h2 className="font-semibold text-2xl pb-1">{children}</h2>;
 };
 
 interface SettingDescriptionProps {

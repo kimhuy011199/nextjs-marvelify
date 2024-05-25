@@ -10,7 +10,7 @@ const AccountSettingLayout: React.FC<Props> = ({ children }) => {
   return (
     <section className="bg-gray-50 py-10">
       <Container>
-        <div className="flex gap-16">
+        <div className="flex gap-10">
           <AccountSidebar />
           <div className="w-full">{children}</div>
         </div>

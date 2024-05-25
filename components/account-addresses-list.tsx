@@ -18,7 +18,7 @@ const AccountAddressesList: React.FC<AccountAddressesListProps> = ({
           </li>
         ))}
       </ul>
-      <div className="self-end mt-6">
+      <div className="self-end mt-5">
         <AccountAddressCreateButton />
       </div>
     </div>

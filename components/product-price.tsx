@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 interface ProductPriceProps {
   price: number;
   currency: string;
-  variant?: 'default' | 'lg';
+  variant?: 'default' | 'md' | 'lg';
 }
 
 const ProductPrice: React.FC<ProductPriceProps> = ({
@@ -18,6 +18,7 @@ const ProductPrice: React.FC<ProductPriceProps> = ({
   };
   const variantClasses = {
     default: 'font-semibold',
+    md: 'text-xl font-bold',
     lg: 'text-3xl font-bold',
   };
   const priceLabel = `${
