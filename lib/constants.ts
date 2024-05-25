@@ -8,6 +8,12 @@ export const ROUTES = {
   CHECKOUT: '/checkout',
 };
 
+export const CHECKOUT_STEPS = {
+  ADDRESS: 'address',
+  DELIVERY: 'delivery',
+  PAYMENT: 'payment',
+};
+
 export const SEARCH_PARAMS_KEYS = {
   SORT: 'sort',
   AVAILABILITY: 'availability',
