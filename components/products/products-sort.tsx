@@ -30,8 +30,8 @@ const ProductsSort: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      <span className="font-medium text-muted-foreground">Sort by</span>
+    <div className="flex flex-col gap-1">
+      <span className="font-medium">Sort by</span>
       <div>
         <Select defaultValue={defaultValue} onValueChange={handleValueChange}>
           <SelectTrigger>

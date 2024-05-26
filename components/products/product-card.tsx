@@ -1,22 +1,18 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import Money from '@/components/money';
+import { ProductType } from '@/lib/types';
 
 interface ProductCardProps {
-  product: {
-    id: number;
-    name: string;
-    price: number;
-    currency: string;
-    previewImg: string;
-  };
+  product: ProductType;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="border border-gray-200 shadow-sm rounded-2xl bg-white transition-all hover:shadow hover:border-gray-300">
-      <Link href={`/products/${product.id}`}>
-        <div className="p-6 pb-3 lg:p-10 lg:py-4">
+    <div className="border border-accent rounded-2xl bg-white">
+      <Link href={`/products/${product.handle}`}>
+        <div className="p-6 pb-3 lg:p-10 lg:py-4 lg:pb-1">
           <Image
             src={product.previewImg}
             width={540}
@@ -26,9 +22,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         <div className="py-4 px-5">
           <h3 className="font-medium">{product.name}</h3>
-          <p className="text-muted-foreground">
-            {product.price} {product.currency}
-          </p>
+          <Money
+            amount={product.variants[0].priceAfterDiscounted}
+            originalAmount={product.variants[0].price}
+            currency={product.variants[0].currency}
+          />
         </div>
       </Link>
     </div>

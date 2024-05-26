@@ -1,10 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { set, z } from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,29 +17,15 @@ import {
 import { RadioGroup, VariantRadioGroupItem } from '@/components/ui/radio-group';
 import Divider from '@/components/divider';
 import Image from 'next/image';
-import ProductQuantity from '@/components/product-quantity';
-import ProductPrice from '@/components/product-price';
+import ProductQuantity from '@/components/products/product-quantity';
+import Money from '@/components/money';
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 import { ROUTES } from '@/lib/constants';
+import { ProductType } from '@/lib/types';
 
 interface ProductFormProps {
-  product: {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    currency: string;
-    previewImg: string;
-    collection: string;
-    variants: {
-      id: string;
-      name: string;
-      previewImg: string;
-      price: number;
-      currency: string;
-    }[];
-  };
+  product: ProductType;
 }
 
 const formSchema = z.object({
@@ -69,6 +55,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
   const onSubmit = () => {
     console.log('currentVariant', currentVariant);
     console.log('quantity', quantity);
+    // Check the current variant's available quantity => Show toast limited quantity
     toast({
       title: `Added ${product.name}`,
       description: 'Color: ' + currentVariant.name + ' - Quantity: ' + quantity,
@@ -83,9 +70,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
     });
   };
 
+  useEffect(() => {
+    setQuantity(1);
+  }, [currentVariant.id]);
+
   return (
     <div className="grid grid-cols-5 gap-16 items-center">
-      <div className="col-span-3 border border-gray-200 shadow-sm rounded-2xl bg-white p-16 flex justify-center items-center">
+      <div className="col-span-3 border border-accent rounded-2xl bg-white p-16 flex justify-center items-center">
         <div className="w-full max-w-60">
           <Image
             src={currentVariant.previewImg}
@@ -98,11 +89,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
       <div className="col-span-2">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-semibold">{product.name}</h1>
-          <p className="text-muted-foreground text-sm">{product.description}</p>
-          <ProductPrice
-            variant="lg"
-            price={currentVariant.price}
+          <p className="text-accent-foreground text-sm">
+            {product.description}
+          </p>
+          <Money
+            amount={currentVariant.priceAfterDiscounted}
+            originalAmount={currentVariant.price}
             currency={currentVariant.currency}
+            className="text-2xl font-bold"
           />
           <Divider />
         </div>
@@ -146,11 +140,18 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
             <ProductQuantity
               handleQuantityChange={handleQuantityChange}
               quantity={quantity}
+              limit={currentVariant.availableQuantity}
               className="self-start"
             />
-            <Button size={'lg'} type="submit">
-              Add to cart
-            </Button>
+            {!currentVariant.availableQuantity ? (
+              <Button size="lg" type="button" disabled>
+                Sold out
+              </Button>
+            ) : (
+              <Button size="lg" type="submit">
+                Add to cart
+              </Button>
+            )}
           </form>
         </Form>
       </div>

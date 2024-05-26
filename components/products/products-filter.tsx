@@ -51,7 +51,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="font-medium text-muted-foreground">{title}</span>
+      <span className="font-medium">{title}</span>
       <Form {...form}>
         <form className="space-y-4">
           <FormField
@@ -68,7 +68,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
                       return (
                         <FormItem
                           key={item.value}
-                          className="flex flex-row items-center space-x-2 space-y-0"
+                          className="flex flex-row items-center space-x-2.5 space-y-0"
                         >
                           <FormControl>
                             <Checkbox
@@ -84,7 +84,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
                               }}
                             />
                           </FormControl>
-                          <FormLabel className="font-normal text-base">
+                          <FormLabel className="font-normal text-base text-accent-foreground">
                             {item.label}
                           </FormLabel>
                         </FormItem>
