@@ -6,6 +6,7 @@ export const ROUTES = {
   ACCOUNT_ORDERS: '/account/orders',
   CART: '/cart',
   CHECKOUT: '/checkout',
+  SEARCH: '/search',
 };
 
 export const CHECKOUT_STEPS = {
@@ -36,3 +37,7 @@ export const FEAUTES_OPTIONS = [
   { label: 'Wireless charging', value: 'wifi' },
   { label: 'Shockproof protection', value: 'shockproof' },
 ];
+
+export const PERSONAL_LINKS = {
+  GITHUB: 'https://github.com/kimhuy011199/nextjs-marvelify',
+};

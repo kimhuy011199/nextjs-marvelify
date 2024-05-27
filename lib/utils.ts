@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { CHECKOUT_STEPS } from './constants';
+import { CHECKOUT_STEPS } from '@/lib/constants';
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
