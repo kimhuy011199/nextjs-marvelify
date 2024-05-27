@@ -1,6 +1,7 @@
 export type VariantType = {
   id: string;
   productHandle: string;
+  productName: string;
   name: string;
   price: number;
   priceAfterDiscounted: number;
@@ -20,4 +21,14 @@ export type ProductType = {
   features: string;
   previewImg: string;
   variants: VariantType[];
+};
+
+export type CartLineItemType = {
+  productVariantId: string;
+  productVariant: VariantType;
+  quantity: number;
+};
+
+export type CartType = {
+  items: CartLineItemType[];
 };
