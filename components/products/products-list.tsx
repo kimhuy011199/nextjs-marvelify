@@ -1,22 +1,22 @@
 import React from 'react';
 import ProductCard from '@/components/products/product-card';
 import { ProductType } from '@/lib/types';
+import { twMerge } from 'tailwind-merge';
 
 interface ProductListProps {
   products: ProductType[];
+  className?: string;
 }
 
-const ProductsList: React.FC<ProductListProps> = ({ products }) => {
+const ProductsList: React.FC<ProductListProps> = ({ products, className }) => {
   return (
-    <div>
-      <ul className="grid grid-cols-3 gap-3">
-        {products.map((product) => (
-          <li key={product.id}>
-            <ProductCard product={product} />
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className={twMerge('grid grid-cols-3 gap-3', className)}>
+      {products.map((product) => (
+        <li key={product.id}>
+          <ProductCard product={product} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

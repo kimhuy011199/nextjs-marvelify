@@ -18,11 +18,13 @@ import { RadioGroup, VariantRadioGroupItem } from '@/components/ui/radio-group';
 import Divider from '@/components/divider';
 import Image from 'next/image';
 import ProductQuantity from '@/components/products/product-quantity';
+import ProductMaxQuantity from '@/components/products/product-max-quantity';
 import Money from '@/components/money';
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 import { ROUTES } from '@/lib/constants';
 import { ProductType } from '@/lib/types';
+import { useCart } from '@/lib/hooks/use-cart';
 
 interface ProductFormProps {
   product: ProductType;
@@ -33,8 +35,10 @@ const formSchema = z.object({
 });
 
 const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
+  const [mounted, setMounted] = React.useState(false);
   const [quantity, setQuantity] = React.useState(1);
   const { toast } = useToast();
+  const cart = useCart();
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,14 +52,26 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
       (variant) => variant.name === form.getValues('variantName')
     ) || product.variants[0];
 
+  const currentVariantQuantityInCart = cart.getQuantity(currentVariant.id);
+  const isDisabledAddToCart =
+    currentVariantQuantityInCart + quantity > currentVariant.availableQuantity;
+  const limitedQuantity =
+    currentVariant.availableQuantity - currentVariantQuantityInCart;
+
   const handleQuantityChange = (value: number) => {
     setQuantity(value);
   };
 
-  const onSubmit = () => {
-    console.log('currentVariant', currentVariant);
-    console.log('quantity', quantity);
-    // Check the current variant's available quantity => Show toast limited quantity
+  const handleAddToCart = () => {
+    if (isDisabledAddToCart) {
+      return;
+    }
+    cart.addItem({
+      productVariantId: currentVariant.id,
+      productVariant: currentVariant,
+      quantity,
+    });
+    setQuantity(1);
     toast({
       title: `Added ${product.name}`,
       description: 'Color: ' + currentVariant.name + ' - Quantity: ' + quantity,
@@ -73,6 +89,16 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
   useEffect(() => {
     setQuantity(1);
   }, [currentVariant.id]);
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+    }
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="grid grid-cols-5 gap-16 items-center">
@@ -102,7 +128,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
         </div>
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={form.handleSubmit(handleAddToCart)}
             className="flex flex-col gap-4 pt-4"
           >
             <FormField
@@ -140,7 +166,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
             <ProductQuantity
               handleQuantityChange={handleQuantityChange}
               quantity={quantity}
-              limit={currentVariant.availableQuantity}
+              limit={limitedQuantity}
               className="self-start"
             />
             {!currentVariant.availableQuantity ? (
@@ -148,10 +174,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                 Sold out
               </Button>
             ) : (
-              <Button size="lg" type="submit">
+              <Button size="lg" type="submit" disabled={isDisabledAddToCart}>
                 Add to cart
               </Button>
             )}
+            {isDisabledAddToCart && currentVariant.availableQuantity ? (
+              <ProductMaxQuantity />
+            ) : null}
           </form>
         </Form>
       </div>

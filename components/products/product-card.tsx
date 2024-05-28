@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="border border-accent rounded-2xl bg-white">
       <Link href={`/products/${product.handle}`}>
-        <div className="p-6 pb-3 lg:p-10 lg:py-4 lg:pb-1">
+        <div className="p-6 pb-3 lg:p-12 lg:py-8 lg:pb-4">
           <Image
             src={product.previewImg}
             width={540}

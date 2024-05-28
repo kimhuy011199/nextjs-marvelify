@@ -1,4 +1,4 @@
-import { ProductType } from '../types';
+import { ProductType } from '@/lib/types';
 
 const originalProducts = [
   {
@@ -17,6 +17,7 @@ const originalProducts = [
       {
         id: '0101',
         productHandle: 'spiderman-case',
+        productName: 'Spiderman Case',
         name: 'Silver',
         price: 20,
         priceAfterDiscounted: 20,
@@ -28,6 +29,7 @@ const originalProducts = [
       {
         id: '0102',
         productHandle: 'spiderman-case',
+        productName: 'Spiderman Case',
         name: 'Black',
         price: 25,
         priceAfterDiscounted: 22,
@@ -54,6 +56,7 @@ const originalProducts = [
       {
         id: '0201',
         productHandle: 'ironman-case',
+        productName: 'Ironman Case',
         name: 'Silver',
         price: 22,
         priceAfterDiscounted: 20,
@@ -65,6 +68,7 @@ const originalProducts = [
       {
         id: '0202',
         productHandle: 'ironman-case',
+        productName: 'Ironman Case',
         name: 'Black',
         price: 22,
         priceAfterDiscounted: 22,
@@ -91,6 +95,7 @@ const originalProducts = [
       {
         id: '0301',
         productHandle: 'loki-case',
+        productName: 'Loki Case',
         name: 'Silver',
         price: 18,
         priceAfterDiscounted: 18,
@@ -102,6 +107,7 @@ const originalProducts = [
       {
         id: '0302',
         productHandle: 'loki-case',
+        productName: 'Loki Case',
         name: 'Black',
         price: 18,
         priceAfterDiscounted: 18,
@@ -128,6 +134,7 @@ const originalProducts = [
       {
         id: '0401',
         productHandle: 'black-panther-case',
+        productName: 'Black Panther Case',
         name: 'Silver',
         price: 20,
         priceAfterDiscounted: 20,
@@ -139,6 +146,7 @@ const originalProducts = [
       {
         id: '0402',
         productHandle: 'black-panther-case',
+        productName: 'Black Panther Case',
         name: 'Black',
         price: 20,
         priceAfterDiscounted: 18,
@@ -165,6 +173,7 @@ const originalProducts = [
       {
         id: '0501',
         productHandle: 'thanos-case',
+        productName: 'Thanos Case',
         name: 'Silver',
         price: 16,
         priceAfterDiscounted: 16,
@@ -176,6 +185,7 @@ const originalProducts = [
       {
         id: '0502',
         productHandle: 'thanos-case',
+        productName: 'Thanos Case',
         name: 'Black',
         price: 16,
         priceAfterDiscounted: 16,
@@ -202,6 +212,7 @@ const originalProducts = [
       {
         id: '0601',
         productHandle: 'captain-marvel-case',
+        productName: 'Captain Marvel Case',
         name: 'Silver',
         price: 14,
         priceAfterDiscounted: 14,
@@ -213,6 +224,7 @@ const originalProducts = [
       {
         id: '0602',
         productHandle: 'captain-marvel-case',
+        productName: 'Captain Marvel Case',
         name: 'Black',
         price: 14,
         priceAfterDiscounted: 14,
@@ -239,6 +251,7 @@ const originalProducts = [
       {
         id: '0701',
         productHandle: 'the-falcon-case',
+        productName: 'The Falcon Case',
         name: 'Silver',
         price: 17,
         priceAfterDiscounted: 17,
@@ -250,6 +263,7 @@ const originalProducts = [
       {
         id: '0702',
         productHandle: 'the-falcon-case',
+        productName: 'The Falcon Case',
         name: 'Black',
         price: 17,
         priceAfterDiscounted: 17,
@@ -276,6 +290,7 @@ const originalProducts = [
       {
         id: '0801',
         productHandle: 'thor-case',
+        productName: 'Thor Case',
         name: 'Silver',
         price: 18,
         priceAfterDiscounted: 15,
@@ -287,6 +302,7 @@ const originalProducts = [
       {
         id: '0802',
         productHandle: 'thor-case',
+        productName: 'Thor Case',
         name: 'Black',
         price: 15,
         priceAfterDiscounted: 15,
@@ -313,6 +329,7 @@ const originalProducts = [
       {
         id: '0901',
         productHandle: 'captain-america-paint-case',
+        productName: 'Captain America Case',
         name: 'Silver',
         price: 14,
         priceAfterDiscounted: 14,
@@ -324,6 +341,7 @@ const originalProducts = [
       {
         id: '0902',
         productHandle: 'captain-america-paint-case',
+        productName: 'Captain America Case',
         name: 'Black',
         price: 16,
         priceAfterDiscounted: 16,
@@ -350,6 +368,7 @@ const originalProducts = [
       {
         id: '1001',
         productHandle: 'captain-america-case',
+        productName: 'Captain America Case',
         name: 'Silver',
         price: 18,
         priceAfterDiscounted: 18,
@@ -361,6 +380,7 @@ const originalProducts = [
       {
         id: '1002',
         productHandle: 'captain-america-case',
+        productName: 'Captain America Case',
         name: 'Black',
         price: 20,
         priceAfterDiscounted: 17,
@@ -387,6 +407,7 @@ const originalProducts = [
       {
         id: '1101',
         productHandle: 'black-widow-case',
+        productName: 'Black Widow Case',
         name: 'Silver',
         price: 15,
         priceAfterDiscounted: 15,
@@ -398,6 +419,7 @@ const originalProducts = [
       {
         id: '1102',
         productHandle: 'black-widow-case',
+        productName: 'Black Widow Case',
         name: 'Black',
         price: 15,
         priceAfterDiscounted: 15,
@@ -415,7 +437,7 @@ const originalProducts = [
     name: 'Moon Knight Case',
     description:
       'Made with high-quality materials, the case features a sleek design with the iconic Moon Knight logo, making it a must-have for any Moon Knight fan.',
-    isFeatured: false,
+    isFeatured: true,
     isAvailableForSale: true,
     features: '',
     previewImg:
@@ -424,6 +446,7 @@ const originalProducts = [
       {
         id: '1201',
         productHandle: 'moon-knight-case',
+        productName: 'Moon Knight Case',
         name: 'Silver',
         price: 15,
         priceAfterDiscounted: 12,
@@ -435,6 +458,7 @@ const originalProducts = [
       {
         id: '1202',
         productHandle: 'moon-knight-case',
+        productName: 'Moon Knight Case',
         name: 'Black',
         price: 14,
         priceAfterDiscounted: 12,
@@ -461,6 +485,7 @@ const originalProducts = [
       {
         id: '1301',
         productHandle: 'hawkeye-case',
+        productName: 'Hawkeye Case',
         name: 'Silver',
         price: 19,
         priceAfterDiscounted: 19,
@@ -472,6 +497,7 @@ const originalProducts = [
       {
         id: '1302',
         productHandle: 'hawkeye-case',
+        productName: 'Hawkeye Case',
         name: 'Black',
         price: 19,
         priceAfterDiscounted: 19,
@@ -498,6 +524,7 @@ const originalProducts = [
       {
         id: '1401',
         productHandle: 'antman-case',
+        productName: 'Antman Case',
         name: 'Silver',
         price: 14,
         priceAfterDiscounted: 14,
@@ -509,6 +536,7 @@ const originalProducts = [
       {
         id: '1402',
         productHandle: 'antman-case',
+        productName: 'Antman Case',
         name: 'Black',
         price: 14,
         priceAfterDiscounted: 14,
@@ -567,4 +595,20 @@ const getProductByHandle = (handle: string) => {
   return originalProducts.find((product) => product.handle === handle);
 };
 
-export { getProducts, getProductByHandle };
+const getFeaturedProducts = () => {
+  return originalProducts.filter((product) => product.isFeatured);
+};
+
+const getRelatedProducts = (productId: string) => {
+  return originalProducts
+    .filter((product) => product.id !== productId)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 4);
+};
+
+export {
+  getProducts,
+  getProductByHandle,
+  getRelatedProducts,
+  getFeaturedProducts,
+};
