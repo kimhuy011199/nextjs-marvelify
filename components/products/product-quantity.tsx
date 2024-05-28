@@ -1,12 +1,14 @@
 import React from 'react';
-import { Minus, Plus, TriangleAlert } from 'lucide-react';
+import { Minus, Plus } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
+import ProductMaxQuantity from '@/components/products/product-max-quantity';
 
 interface ProductQuantityProps {
   handleQuantityChange: (value: number) => void;
   quantity: number;
   limit?: number;
   className?: string;
+  asTooltip?: boolean;
 }
 
 const PRODUCT_QUANTITY_LIMIT = 10;
@@ -16,6 +18,7 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
   quantity,
   limit = PRODUCT_QUANTITY_LIMIT,
   className,
+  asTooltip,
 }) => {
   const handleIncrement = () => {
     if (quantity === limit) {
@@ -32,13 +35,8 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-start gap-2">
-      <div
-        className={twMerge(
-          'flex items-center gap-2 rounded-lg p-1.5 bg-white border border-accent',
-          className
-        )}
-      >
+    <div className={twMerge('flex items-center gap-4', className)}>
+      <div className="flex items-center gap-2 rounded-lg p-1.5 bg-white border border-accent">
         <button
           type="button"
           onClick={handleDecrement}
@@ -60,10 +58,7 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
         </button>
       </div>
       {limit && quantity === limit ? (
-        <div className="flex items-center text-sm text-amber-500 gap-2">
-          <TriangleAlert size={15} />
-          <span>Max quantity reached</span>
-        </div>
+        <ProductMaxQuantity asTooltip={asTooltip} />
       ) : null}
     </div>
   );
