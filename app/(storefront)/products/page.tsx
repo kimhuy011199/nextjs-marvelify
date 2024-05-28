@@ -2,6 +2,7 @@ import React from 'react';
 import Container from '@/components/container';
 import ProductsList from '@/components/products/products-list';
 import ProductsQueries from '@/components/products/products-queries';
+import { Section } from '@/components/section';
 import { getProducts } from '@/lib/data/products';
 
 const Page: React.FC = ({
@@ -14,8 +15,9 @@ const Page: React.FC = ({
   };
 }) => {
   const products = getProducts(searchParams);
+
   return (
-    <section className="py-16">
+    <Section>
       <Container>
         <div className="grid grid-cols-4 gap-10">
           <ProductsQueries />
@@ -24,7 +26,7 @@ const Page: React.FC = ({
           </div>
         </div>
       </Container>
-    </section>
+    </Section>
   );
 };
 
