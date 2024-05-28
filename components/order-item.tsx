@@ -12,28 +12,28 @@ interface OrderItemProps {
 const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
   console.log('order', order);
   return (
-    <div className="border border-gray-200 shadow-sm rounded-2xl bg-white transition-all flex flex-col overflow-hidden">
+    <div className="border border-accent rounded-2xl bg-white transition-all flex flex-col overflow-hidden">
       <div className="grid grid-cols-4 px-4 py-3 border-b bg-gray-50">
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-accent-foreground">
             Order ID
           </span>
           <span className="font-medium">#{order.id}</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-accent-foreground">
             Order Date
           </span>
           <span className="font-medium">{order.orderDate}</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-accent-foreground">
             Status
           </span>
           <span className="font-medium">{order.status}</span>
         </div>
         <div className="flex flex-col">
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-accent-foreground">
             Total Price
           </span>
           <ProductPrice price={order.totalPrice} currency={order.currency} />
@@ -42,7 +42,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
       {order?.estimatedDelivery ? (
         <div className="flex items-center gap-2 px-4 pt-3">
           <Info size={16} className="text-blue-400" />
-          <span className="text-sm font-medium text-muted-foreground">
+          <span className="text-sm font-medium text-accent-foreground">
             Estimated Delivery:
           </span>
           <span className="font-medium">{order.estimatedDelivery}</span>
@@ -50,7 +50,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
       ) : null}
       <OrderLineItem orderLineItem={order.lineItems[0]} />
       <div className="flex justify-between items-center px-5 pb-2">
-        <div className="text-muted-foreground text-sm">
+        <div className="text-accent-foreground text-sm">
           {order.lineItems.length > 1 ? (
             <span>{order.lineItems.length - 1} more item(s)</span>
           ) : null}

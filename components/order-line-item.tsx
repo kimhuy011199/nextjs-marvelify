@@ -27,11 +27,11 @@ const OrderLineItem: React.FC<OrderLineItemProps> = ({ orderLineItem }) => {
         <div className="flex flex-col">
           <h3 className="font-medium text-lg pb-1">{orderLineItem.name}</h3>
           <p className="">
-            <span className="text-muted-foreground">Variant: </span>
+            <span className="text-accent-foreground">Variant: </span>
             <span className="font-medium">{orderLineItem.variant}</span>
           </p>
           <p className="">
-            <span className="text-muted-foreground">Quantity: </span>
+            <span className="text-accent-foreground">Quantity: </span>
             <span className="font-medium">{orderLineItem.quantity}</span>
           </p>
         </div>

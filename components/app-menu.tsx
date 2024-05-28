@@ -42,7 +42,10 @@ const AppMenu: React.FC = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="ghost" className="p-2">
+        <Button
+          variant="ghost"
+          className="p-2 rounded-md hover:text-primary hover:bg-transparent"
+        >
           <Menu />
         </Button>
       </SheetTrigger>
