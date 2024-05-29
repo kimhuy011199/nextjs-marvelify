@@ -3,20 +3,21 @@ import Link from 'next/link';
 import Container from '@/components/container';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
+import { PERSONAL_LINKS, ROUTES } from '@/lib/constants';
 
 const Footer: React.FC = () => {
   return (
-    <div className="border-t pt-16 bg-background">
+    <div className="border-t pt-16 bg-white">
       <Container>
         <div className="flex flex-col w-full max-w-3xl ">
           <Logo />
-          <p className="text-muted-foreground my-5">
+          <p className="text-accent-foreground my-5">
             Marvel Caseshop is a e-commerce store built with Next.js. This demo
             store is an open-source project. If you like this project, please
             give me a star on
             <Link
               className="text-foreground underline pl-1.5"
-              href="https://github.com/kimhuy011199/nextjs-marvelify"
+              href={PERSONAL_LINKS.GITHUB}
             >
               Github
             </Link>
@@ -26,23 +27,23 @@ const Footer: React.FC = () => {
             <li className="uppercase font-medium">Useful Links:</li>
             <li>
               <Button asChild variant="link" className="p-0 text-base">
-                <Link href="/account">Account</Link>
+                <Link href={ROUTES.ACCOUNT_PROFILE}>Account</Link>
               </Button>
             </li>
             <li>
               <Button asChild variant="link" className="p-0 text-base">
-                <Link href="/products">Products</Link>
+                <Link href={ROUTES.PRODUCT}>Products</Link>
               </Button>
             </li>
             <li>
               <Button asChild variant="link" className="p-0 text-base">
-                <Link href="/search">Search</Link>
+                <Link href={ROUTES.SEARCH}>Search</Link>
               </Button>
             </li>
           </ul>
         </div>
         <div className="flex justify-between py-4 border-t">
-          <span className="text-muted-foreground text-sm">
+          <span className="text-accent-foreground text-sm">
             © 2024 Marvelify. All rights reserved.
           </span>
           <ul></ul>

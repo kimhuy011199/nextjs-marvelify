@@ -7,7 +7,7 @@ interface DividerProps {
 const Divider: React.FC<DividerProps> = ({ className }) => {
   return (
     <div className={className}>
-      <hr className="border-t border-gray-200" />
+      <hr className="border-t border-accent" />
     </div>
   );
 };

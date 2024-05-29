@@ -5,7 +5,13 @@ import Image from 'next/image';
 const Logo: React.FC = () => {
   return (
     <Link href="/">
-      <Image src="/logo-sm.png" alt="Logo" width={138} height={30} />
+      <Image
+        src="/logo-sm.png"
+        alt="Logo"
+        width={890}
+        height={200}
+        className="w-[138px]"
+      />
     </Link>
   );
 };

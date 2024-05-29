@@ -21,7 +21,7 @@ interface SettingDescriptionProps {
 const SettingDescription: React.FC<SettingDescriptionProps> = ({
   children,
 }) => {
-  return <p className="text-muted-foreground">{children}</p>;
+  return <p className="text-accent-foreground">{children}</p>;
 };
 
 interface SettingContentProps {
