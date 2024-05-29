@@ -32,3 +32,44 @@ export type CartLineItemType = {
 export type CartType = {
   items: CartLineItemType[];
 };
+
+export type AddressType = {
+  firstName: string;
+  lastName: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  province?: string;
+  postalCode: string;
+};
+
+export type DeliveryMethodType = {
+  id: string;
+  name: string;
+  price: number;
+  currency: string;
+  estimatedDelivery: string;
+};
+
+export type PaymentType = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+};
+
+export type CheckoutType = {
+  id: string;
+  email: string;
+  createdAt: string;
+  currency: string;
+  totalAmount: number;
+  discountAmount: number;
+  discountCode: string;
+  lineItems: CartLineItemType[];
+  shippingAddress: AddressType;
+  billingAddress: AddressType;
+  deliveryMethod: DeliveryMethodType;
+  paymentMethod: PaymentType;
+};
