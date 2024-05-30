@@ -75,7 +75,7 @@ const FormSchema = z.object({
     }),
   postalCode: z.string().regex(/^[0-9]{5,6}$/, 'Invalid postal code'),
   province: z.string().optional(),
-  country: z.string().optional(),
+  country: z.string(),
 });
 
 const CheckoutFormAddress: React.FC = () => {

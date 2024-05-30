@@ -41,6 +41,7 @@ export type AddressType = {
   city: string;
   province?: string;
   postalCode: string;
+  country: string;
 };
 
 export type DeliveryMethodType = {

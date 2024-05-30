@@ -39,10 +39,9 @@ export const FEAUTES_OPTIONS = [
 ];
 
 export const COUNTRY_OPTIONS = [
-  { label: 'Vietnam', value: 'VN' },
   { label: 'United States', value: 'US' },
   { label: 'United Kingdom', value: 'UK' },
-  { label: 'Canada', value: 'CA' },
+  { label: 'Vietnam', value: 'VN' },
 ];
 
 export const DELIVERY_METHOD_OPTIONS = [
