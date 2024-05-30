@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,6 +35,8 @@ import CheckoutSubmitAction from '@/components/checkout/checkout-submit-action';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCheckout } from '@/lib/hooks/use-checkout';
+import { Checkbox } from '@/components/ui/checkbox';
+import { getExampleAddress } from '@/lib/data/cart';
 
 const FormSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -71,12 +73,13 @@ const FormSchema = z.object({
     .refine((value) => value.trim() !== '', {
       message: 'City is required',
     }),
-  postalCode: z.string().regex(/^[0-9]{6,7}$/, 'Invalid postal code'),
+  postalCode: z.string().regex(/^[0-9]{5,6}$/, 'Invalid postal code'),
   province: z.string().optional(),
   country: z.string().optional(),
 });
 
 const CheckoutFormAddress: React.FC = () => {
+  const [isUseExampleAddress, setIsUseExampleAddress] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -86,6 +89,16 @@ const CheckoutFormAddress: React.FC = () => {
   });
   const checkoutState = useCheckout();
   const router = useRouter();
+
+  const handleUseExampleAddress = (checked: boolean | string) => {
+    form.clearErrors();
+    const email = form.getValues('email');
+    form.reset(
+      checked
+        ? { ...getExampleAddress(), email }
+        : { ...DEFAULT_SHIPPING_ADDRESS, email }
+    );
+  };
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     const { email, ...shippingAdress } = data;
@@ -100,7 +113,7 @@ const CheckoutFormAddress: React.FC = () => {
         <CheckoutStepCard>
           <CheckoutStepHeading>Contact address</CheckoutStepHeading>
           <CheckoutStepDescription>
-            Provide your email address for contact purposes.
+            Your email address for receiving order notifications.
           </CheckoutStepDescription>
           <CheckoutStepContent>
             <FormField
@@ -122,6 +135,22 @@ const CheckoutFormAddress: React.FC = () => {
           <CheckoutStepDescription>
             The address where your order will be delivered.
           </CheckoutStepDescription>
+          <div className="flex items-center space-x-2 mt-3">
+            <Checkbox
+              id="address"
+              checked={isUseExampleAddress}
+              onCheckedChange={(checked) => {
+                setIsUseExampleAddress(!!checked);
+                handleUseExampleAddress(checked);
+              }}
+            />
+            <label
+              htmlFor="address"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Use the sample shipping address
+            </label>
+          </div>
           <CheckoutStepContent>
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-2 gap-4">
