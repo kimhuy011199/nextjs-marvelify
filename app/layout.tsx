@@ -18,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={urbanist.className}>
-        <main>{children}</main>
+        <main className="hidden md:block">{children}</main>
+        <div className="flex md:hidden w-screen h-screen items-center justify-center">
+          <span>This web app is not supported for mobile view</span>
+        </div>
         <Toaster />
       </body>
     </html>
