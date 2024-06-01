@@ -33,13 +33,15 @@ const FormSchema = z.object({
 });
 
 const CheckoutFormDelivery: React.FC = () => {
+  const checkoutState = useCheckout();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      method: DELIVERY_METHOD_OPTIONS[1].id,
+      method:
+        checkoutState.checkout.deliveryMethod.id ||
+        DELIVERY_METHOD_OPTIONS[1].id,
     },
   });
-  const checkoutState = useCheckout();
   const router = useRouter();
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
@@ -48,6 +50,7 @@ const CheckoutFormDelivery: React.FC = () => {
     );
     if (selectedMethod) {
       checkoutState.setDeliveryMethod(selectedMethod);
+      checkoutState.calculateTotal();
       router.push(`${ROUTES.CHECKOUT}?step=${CHECKOUT_STEPS.PAYMENT}`);
     }
   };
