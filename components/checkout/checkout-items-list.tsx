@@ -1,14 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
-import { useCart } from '@/lib/hooks/use-cart';
 import Money from '@/components/money';
+import { useCheckout } from '@/lib/hooks/use-checkout';
 
 const CheckoutItemsList: React.FC = () => {
-  const cart = useCart();
+  const checkoutState = useCheckout();
 
   return (
     <ul className="flex flex-col gap-3 mb-2">
-      {cart.items.map((item) => (
+      {checkoutState.checkout.lineItems.map((item) => (
         <li key={item.productVariantId} className="flex gap-5">
           <div className="border border-accent rounded-xl h-20 w-20 bg-white p-2 flex justify-center items-center">
             <div className="w-full max-w-8">

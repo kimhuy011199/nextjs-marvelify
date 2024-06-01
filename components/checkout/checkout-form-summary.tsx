@@ -1,58 +1,66 @@
+'use client';
+
 import React from 'react';
 import {
   CheckoutStepCard,
   CheckoutStepDescription,
   CheckoutStepHeading,
 } from '@/components/checkout/checkout-step';
+import { useCheckout } from '@/lib/hooks/use-checkout';
+import { CHECKOUT_STEPS } from '@/lib/constants';
 
 interface CheckoutFormSummaryProps {
-  cart: any;
+  checkoutStep: string;
 }
 
-const CheckoutFormSummary: React.FC<CheckoutFormSummaryProps> = ({ cart }) => {
-  const summary = [
-    {
-      label: 'Contact',
-      value: cart.email,
-    },
-    {
-      label: 'Ship to',
-      value: `${cart.shippingAddress.address}, ${cart.shippingAddress.city}, ${cart.shippingAddress.country}`,
-    },
-    {
-      label: 'Method',
-      value: cart?.shippingMethod?.label,
-    },
-  ];
+const CheckoutFormSummary: React.FC<CheckoutFormSummaryProps> = ({
+  checkoutStep,
+}) => {
+  const checkoutState = useCheckout();
+  const { checkout } = checkoutState;
+  const { email, shippingAddress, deliveryMethod } = checkout;
+  const { address1, city, postalCode, country } = shippingAddress;
+
+  const contactAddressValue = {
+    label: 'Contact address',
+    value: email,
+  };
+
+  const shippingAddressValue = {
+    label: 'Shipping address',
+    value: `${address1}, ${city}, ${postalCode}, ${country}`,
+  };
+
+  const deliveryMethodValue = {
+    label: 'Delivery method',
+    value: deliveryMethod?.name,
+  };
+
+  const renderSummary = () => {
+    switch (checkoutStep) {
+      case CHECKOUT_STEPS.DELIVERY:
+        return [contactAddressValue, shippingAddressValue];
+      case CHECKOUT_STEPS.PAYMENT:
+        return [contactAddressValue, shippingAddressValue, deliveryMethodValue];
+      default:
+        return [];
+    }
+  };
+  const summaryData = renderSummary();
 
   return (
-    <div className="flex flex-col gap-5 pb-8 mb-8 border-b border-accent">
-      <CheckoutStepCard>
-        <CheckoutStepHeading>Contact email</CheckoutStepHeading>
-        <CheckoutStepDescription>something@example.com</CheckoutStepDescription>
-      </CheckoutStepCard>
-      <CheckoutStepCard>
-        <CheckoutStepHeading>Ship to</CheckoutStepHeading>
-        <CheckoutStepDescription>
-          123 Main Street, Otoka, Emino, Canada
-        </CheckoutStepDescription>
-      </CheckoutStepCard>
-    </div>
-  );
-
-  return (
-    <div className="border border-accent rounded-xl bg-white mb-10">
-      <ul className="px-4 py-1 flex flex-col divide-y divide-accent">
-        {summary.map((item, index) => (
-          <li key={index}>
-            <div className="flex text-sm py-2">
-              <span className="min-w-24 text-gray-600">{item.label}</span>
-              <span>{item.value}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      {summaryData.length ? (
+        <div className="flex flex-col gap-5 pb-8 mb-8 border-b border-accent">
+          {summaryData.map((item, index) => (
+            <CheckoutStepCard key={index}>
+              <CheckoutStepHeading>{item.label}</CheckoutStepHeading>
+              <CheckoutStepDescription>{item.value}</CheckoutStepDescription>
+            </CheckoutStepCard>
+          ))}
+        </div>
+      ) : null}
+    </>
   );
 };
 
