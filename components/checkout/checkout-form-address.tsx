@@ -36,7 +36,7 @@ import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCheckout } from '@/lib/hooks/use-checkout';
 import { Checkbox } from '@/components/ui/checkbox';
-import { getExampleAddress } from '@/lib/data/cart';
+import { getExampleAddress } from '@/lib/data/addresses';
 
 const FormSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -80,14 +80,21 @@ const FormSchema = z.object({
 
 const CheckoutFormAddress: React.FC = () => {
   const [isUseExampleAddress, setIsUseExampleAddress] = useState(false);
+  const checkoutState = useCheckout();
+  const defaultValues = checkoutState.checkout.shippingAddress.address1
+    ? {
+        ...checkoutState.checkout.shippingAddress,
+        email: checkoutState.checkout.email,
+      }
+    : {
+        ...DEFAULT_SHIPPING_ADDRESS,
+        email: '',
+      };
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: '',
-      ...DEFAULT_SHIPPING_ADDRESS,
-    },
+    defaultValues,
   });
-  const checkoutState = useCheckout();
+  console.log('checkoutState', checkoutState.checkout);
   const router = useRouter();
 
   const handleUseExampleAddress = (checked: boolean | string) => {
