@@ -27,6 +27,9 @@ const CheckoutSummary: React.FC = () => {
 
   return (
     <>
+      <div className="block lg:hidden mb-5">
+        <h2 className="font-semibold text-xl">Order summary</h2>
+      </div>
       <SummaryContent>
         <CheckoutItemsList />
         <Divider className="my-3" />
