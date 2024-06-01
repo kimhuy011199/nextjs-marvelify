@@ -1,5 +1,10 @@
 import { create } from 'zustand';
-import { AddressType, CheckoutType, DeliveryMethodType } from '@/lib/types';
+import {
+  AddressType,
+  CheckoutType,
+  DeliveryMethodType,
+  DiscountType,
+} from '@/lib/types';
 import { DEFAULT_SHIPPING_ADDRESS } from '@/lib/constants';
 
 interface CheckoutStore {
@@ -8,27 +13,28 @@ interface CheckoutStore {
   setShippingAddress: (shippingAddress: AddressType) => void;
   setBillingAddress: (billingAddress: AddressType) => void;
   setDeliveryMethod: (deliveryMethod: DeliveryMethodType) => void;
+  setDiscount: (discount: DiscountType) => void;
+  setCartItems: (cartItems: any[]) => void;
+  clearDiscount: () => void;
+  calculateSubTotal: () => number;
+  calculateTotal: () => number;
 }
 
 const DEFAULT_CHECKOUT: CheckoutType = {
   id: '',
   email: '',
   createdAt: '',
-  currency: '',
-  totalAmount: 0,
-  discountAmount: 0,
-  discountCode: '',
+  currency: 'USD',
+  total: 0,
+  subTotal: 0,
+  discount: {
+    value: 0,
+    code: '',
+    currency: 'USD',
+  },
   lineItems: [],
   shippingAddress: DEFAULT_SHIPPING_ADDRESS,
-  billingAddress: {
-    firstName: '',
-    lastName: '',
-    address1: '',
-    address2: '',
-    city: '',
-    province: '',
-    postalCode: '',
-  },
+  billingAddress: DEFAULT_SHIPPING_ADDRESS,
   deliveryMethod: {
     id: '',
     name: '',
@@ -63,6 +69,58 @@ const useCheckout = create<CheckoutStore>((set, get) => ({
   setDeliveryMethod: (deliveryMethod) => {
     set((state) => ({
       checkout: { ...state.checkout, deliveryMethod },
+    }));
+  },
+  setDiscount: (discount) => {
+    set((state) => ({
+      checkout: {
+        ...state.checkout,
+        discount: {
+          value: discount.value,
+          code: discount.code,
+          currency: discount.currency,
+        },
+      },
+    }));
+  },
+  clearDiscount: () => {
+    set((state) => ({
+      checkout: {
+        ...state.checkout,
+        discount: {
+          value: 0,
+          code: '',
+          currency: 'USD',
+        },
+      },
+    }));
+  },
+  calculateSubTotal: () => {
+    const { checkout } = get();
+    const subTotal = checkout.lineItems.reduce(
+      (acc, item) =>
+        acc + item.productVariant.priceAfterDiscounted * item.quantity,
+      0
+    );
+    set((state) => ({
+      checkout: { ...state.checkout, subTotal },
+    }));
+    return subTotal;
+  },
+  calculateTotal: () => {
+    const { checkout } = get();
+    const total =
+      checkout.subTotal +
+      checkout.deliveryMethod?.price -
+      checkout.discount?.value;
+    set((state) => ({
+      checkout: { ...state.checkout, total },
+    }));
+    return total;
+  },
+  setCartItems: (lineItems) => {
+    set((state) => ({
+      checkout: { ...state.checkout, lineItems },
     }));
   },
 }));

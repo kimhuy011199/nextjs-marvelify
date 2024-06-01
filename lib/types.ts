@@ -65,12 +65,22 @@ export type CheckoutType = {
   email: string;
   createdAt: string;
   currency: string;
-  totalAmount: number;
-  discountAmount: number;
-  discountCode: string;
+  total: number;
+  subTotal: number;
+  discount: {
+    value: number;
+    code: string;
+    currency: string;
+  };
   lineItems: CartLineItemType[];
   shippingAddress: AddressType;
   billingAddress: AddressType;
   deliveryMethod: DeliveryMethodType;
   paymentMethod: PaymentType;
+};
+
+export type DiscountType = {
+  currency: string;
+  value: number;
+  code: string;
 };
