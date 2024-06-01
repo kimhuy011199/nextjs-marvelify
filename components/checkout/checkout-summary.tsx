@@ -4,13 +4,26 @@ import React from 'react';
 import Divider from '@/components/divider';
 import { SummaryContent, SummaryLine, SummaryText } from '@/components/summary';
 import Money from '@/components/money';
-import { useCart } from '@/lib/hooks/use-cart';
 import CheckoutFormDiscount from '@/components/checkout/checkout-form-discount';
 import CheckoutItemsList from '@/components/checkout/checkout-items-list';
+import { useCheckout } from '@/lib/hooks/use-checkout';
 
 const CheckoutSummary: React.FC = () => {
-  const cart = useCart();
-  const subTotal = cart.calculateSubTotal();
+  const checkoutState = useCheckout();
+  const shippingPrice = checkoutState.checkout?.deliveryMethod?.price || 0;
+
+  const renderShippingPrice = () => {
+    if (!shippingPrice) {
+      return <SummaryText>Calculated later</SummaryText>;
+    }
+
+    return (
+      <Money
+        amount={shippingPrice}
+        currency={checkoutState.checkout.currency}
+      />
+    );
+  };
 
   return (
     <>
@@ -22,17 +35,20 @@ const CheckoutSummary: React.FC = () => {
         <SummaryLine>
           <SummaryText>Subtotal</SummaryText>
           <Money
-            amount={subTotal}
-            currency={cart.items[0].productVariant.currency}
+            amount={checkoutState.checkout.subTotal}
+            currency={checkoutState.checkout.currency}
           />
         </SummaryLine>
         <SummaryLine>
           <SummaryText>Shipping</SummaryText>
-          <SummaryText>Calculated later</SummaryText>
+          {renderShippingPrice()}
         </SummaryLine>
         <SummaryLine>
           <SummaryText>Discount</SummaryText>
-          <Money amount={0} currency={cart.items[0].productVariant.currency} />
+          <Money
+            amount={checkoutState.checkout.discount.value}
+            currency={checkoutState.checkout.discount.currency}
+          />
         </SummaryLine>
         <Divider className="my-1" />
         <SummaryLine>
@@ -40,8 +56,8 @@ const CheckoutSummary: React.FC = () => {
             Total
           </SummaryText>
           <Money
-            amount={subTotal}
-            currency={cart.items[0].productVariant.currency}
+            amount={checkoutState.checkout.total}
+            currency={checkoutState.checkout.currency}
           />
         </SummaryLine>
       </SummaryContent>
