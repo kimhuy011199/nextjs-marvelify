@@ -1,4 +1,5 @@
 import { ProductType } from '@/lib/types';
+import delay from 'delay';
 
 const originalProducts = [
   {
@@ -549,7 +550,7 @@ const originalProducts = [
   },
 ];
 
-const getProducts = (
+const getProducts = async (
   searchParams:
     | {
         sort?: string;
@@ -558,6 +559,7 @@ const getProducts = (
       }
     | undefined
 ) => {
+  await delay(2000);
   let products = JSON.parse(JSON.stringify(originalProducts)) as ProductType[];
 
   if (!searchParams) {
@@ -591,17 +593,20 @@ const getProducts = (
   return products;
 };
 
-const getProductByHandle = (handle: string) => {
+const getProductByHandle = async (handle: string) => {
+  await delay(2000);
   return originalProducts.find((product) => product.handle === handle);
 };
 
-const getFeaturedProducts = () => {
+const getFeaturedProducts = async () => {
+  await delay(2000);
   return originalProducts.filter((product) => product.isFeatured);
 };
 
-const getRelatedProducts = (productId: string) => {
+const getRelatedProducts = async (handle: string) => {
+  await delay(2000);
   return originalProducts
-    .filter((product) => product.id !== productId)
+    .filter((product) => product.handle !== handle)
     .sort(() => Math.random() - 0.5)
     .slice(0, 4);
 };
