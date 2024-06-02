@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Container from '@/components/container';
-import ProductsList from '@/components/products/products-list';
 import ProductsQueries from '@/components/products/products-queries';
 import { Section } from '@/components/section';
-import { getProducts } from '@/lib/data/products';
+import ListProducts from './components/list-products';
+import ProductsListSkeleton from '@/components/skeletons/products-list';
 
 const Page: React.FC = ({
   searchParams,
@@ -14,15 +14,23 @@ const Page: React.FC = ({
     feature?: string | string[] | undefined;
   };
 }) => {
-  const products = getProducts(searchParams);
-
   return (
     <Section>
       <Container>
         <div className="grid grid-cols-4 gap-10">
           <ProductsQueries />
           <div className="col-span-3">
-            <ProductsList products={products} />
+            <Suspense
+              fallback={
+                <ProductsListSkeleton
+                  itemEachRow={3}
+                  rows={2}
+                  className="grid-cols-3"
+                />
+              }
+            >
+              <ListProducts searchParams={searchParams} />
+            </Suspense>
           </div>
         </div>
       </Container>
