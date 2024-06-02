@@ -1,16 +1,14 @@
-import React from 'react';
-import Container from '@/components/container';
-import { Section, SectionHeader, SectionHeading } from '@/components/section';
-import ProductsList from '@/components/products/products-list';
-import ArrowLink from '@/components/arrow-link';
-import { getFeaturedProducts } from '@/lib/data/products';
-import { Button } from '@/components/ui/button';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
+import Container from '@/components/container';
+import ArrowLink from '@/components/arrow-link';
+import ProductsListSkeleton from '@/components/skeletons/products-list';
+import { Section, SectionHeader, SectionHeading } from '@/components/section';
+import { Button } from '@/components/ui/button';
 import { PERSONAL_LINKS } from '@/lib/constants';
+import FeaturedProducts from './components/featured-products';
 
 const Home: React.FC = () => {
-  const featuredProducts = getFeaturedProducts();
-
   return (
     <>
       <Section className="pb-0">
@@ -39,7 +37,9 @@ const Home: React.FC = () => {
             <SectionHeading>Featured Products</SectionHeading>
             <ArrowLink label="View all" />
           </SectionHeader>
-          <ProductsList products={featuredProducts} className="grid-cols-4" />
+          <Suspense fallback={<ProductsListSkeleton />}>
+            <FeaturedProducts />
+          </Suspense>
         </Container>
       </Section>
     </>
