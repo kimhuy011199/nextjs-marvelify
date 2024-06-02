@@ -1,33 +1,31 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Container from '@/components/container';
-import ProductForm from '@/components/products/product-form';
-import ProductsList from '@/components/products/products-list';
 import ArrowLink from '@/components/arrow-link';
 import { Section, SectionHeader, SectionHeading } from '@/components/section';
-import { getProductByHandle, getRelatedProducts } from '@/lib/data/products';
+import RelatedProducts from './components/related-products';
+import ProductDetail from './components/product-detail';
+import ProductsListSkeleton from '@/components/skeletons/products-list';
+import ProductDetailSkeleton from '@/components/skeletons/product-detail';
 
-const Page = ({ params }: { params: { handle: string } }) => {
-  const product = getProductByHandle(params.handle);
-  const relatedProducts = getRelatedProducts(product?.id as string);
-
-  if (!product) {
-    return null;
-  }
-
+const Page = async ({ params }: { params: { handle: string } }) => {
   return (
     <>
       <Section>
         <Container>
-          <ProductForm product={product} />
+          <Suspense fallback={<ProductDetailSkeleton />}>
+            <ProductDetail handle={params.handle} />
+          </Suspense>
         </Container>
       </Section>
-      <Section>
+      <Section className="pt-0 lg:pb-16 lg:pt-8">
         <Container>
           <SectionHeader>
             <SectionHeading>Related Products</SectionHeading>
             <ArrowLink label="View all" />
           </SectionHeader>
-          <ProductsList products={relatedProducts} className="grid-cols-4" />
+          <Suspense fallback={<ProductsListSkeleton />}>
+            <RelatedProducts handle={params.handle} />
+          </Suspense>
         </Container>
       </Section>
     </>
