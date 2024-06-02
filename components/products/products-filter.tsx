@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -31,10 +33,10 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
 
   const form = useForm({
     defaultValues: {
-      items: defaultValue,
+      [filterKey]: defaultValue,
     },
   });
-  const filterValues = form.watch('items');
+  const filterValues = form.watch(filterKey);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
@@ -47,7 +49,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
       params.delete(filterKey);
     }
     replace(`${pathname}?${params.toString()}`);
-  }, [filterValues, pathname, replace, searchParams, filterKey]);
+  }, [filterValues.length]);
 
   return (
     <div className="flex flex-col gap-2">
@@ -56,14 +58,14 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         <form className="space-y-4">
           <FormField
             control={form.control}
-            name="items"
+            name={filterKey}
             render={() => (
               <FormItem>
                 {options.map((item) => (
                   <FormField
                     key={item.value}
                     control={form.control}
-                    name="items"
+                    name={filterKey}
                     render={({ field }) => {
                       return (
                         <FormItem
