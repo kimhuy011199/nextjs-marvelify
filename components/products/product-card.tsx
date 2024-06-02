@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Money from '@/components/money';
 import { ProductType } from '@/lib/types';
+import { ROUTES } from '@/lib/constants';
 
 interface ProductCardProps {
   product: ProductType;
@@ -10,8 +11,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="border border-accent rounded-2xl bg-white">
-      <Link href={`/products/${product.handle}`}>
+    <div className="border border-accent rounded-2xl bg-white transition-all hover:shadow-lg hover:-translate-y-0.5">
+      <Link href={`${ROUTES.PRODUCT}/${product.handle}`}>
         <div className="p-6 pb-3 lg:p-12 lg:py-8 lg:pb-4">
           <Image
             src={product.previewImg}

@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ROUTES } from '@/lib/constants';
 
 const Logo: React.FC = () => {
   return (
-    <Link href="/">
+    <Link href={ROUTES.HOME}>
       <Image
         src="/logo-sm.png"
         alt="Logo"
