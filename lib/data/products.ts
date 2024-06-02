@@ -550,14 +550,14 @@ const originalProducts = [
   },
 ];
 
+export interface ProductSearchParamsInterface {
+  sort?: string;
+  availability?: string | string[];
+  feature?: string | string[];
+}
+
 const getProducts = async (
-  searchParams:
-    | {
-        sort?: string;
-        availability?: string | string[];
-        feature?: string | string[];
-      }
-    | undefined
+  searchParams: ProductSearchParamsInterface | undefined
 ) => {
   await delay(2000);
   let products = JSON.parse(JSON.stringify(originalProducts)) as ProductType[];
