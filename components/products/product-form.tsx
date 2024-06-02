@@ -101,8 +101,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
   }
 
   return (
-    <div className="grid grid-cols-5 gap-16 items-center">
-      <div className="col-span-3 border border-accent rounded-2xl bg-white p-16 flex justify-center items-center">
+    <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+      <div className="lg:col-span-3 border border-accent rounded-2xl bg-white p-16 flex justify-center items-center">
         <div className="w-full max-w-60">
           <Image
             src={currentVariant.previewImg}
@@ -112,7 +112,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
           />
         </div>
       </div>
-      <div className="col-span-2">
+      <div className="lg:col-span-2">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-semibold">{product.name}</h1>
           <p className="text-accent-foreground text-sm">

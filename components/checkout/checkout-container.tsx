@@ -12,10 +12,11 @@ const CheckoutContainer: React.FC = () => {
   const checkoutState = useCheckout();
 
   useEffect(() => {
+    // Initialize state
+    checkoutState.clearDiscount();
     checkoutState.setCartItems(cart.items);
     checkoutState.calculateSubTotal();
     checkoutState.calculateTotal();
-    checkoutState.clearDiscount();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart.items]);
 
@@ -25,10 +26,10 @@ const CheckoutContainer: React.FC = () => {
 
   return (
     <NonSSRWrapper>
-      <div className="pr-12 py-12">
+      <div className="px-12 lg:pl-0 py-8 lg:py-12">
         <CheckoutForm />
       </div>
-      <div className="pl-12 py-12 border-l border-l-accent">
+      <div className="px-12 lg:pr-0 py-8 lg:py-12 lg:border-l lg:border-l-accent">
         <CheckoutSummary />
       </div>
     </NonSSRWrapper>

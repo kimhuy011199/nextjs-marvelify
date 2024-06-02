@@ -8,7 +8,7 @@ import CheckoutContainer from '@/components/checkout/checkout-container';
 const Page: React.FC = () => {
   return (
     <Section className="py-0">
-      <Container className="grid grid-cols-2">
+      <Container className="grid lg:grid-cols-2">
         <CheckoutContainer />
       </Container>
     </Section>

@@ -10,7 +10,7 @@ interface ProductListProps {
 
 const ProductsList: React.FC<ProductListProps> = ({ products, className }) => {
   return (
-    <ul className={twMerge('grid grid-cols-3 gap-3', className)}>
+    <ul className={twMerge('grid grid-cols-4 gap-3', className)}>
       {products.map((product) => (
         <li key={product.id}>
           <ProductCard product={product} />
