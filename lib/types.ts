@@ -34,6 +34,7 @@ export type CartType = {
 };
 
 export type AddressType = {
+  id: string;
   firstName: string;
   lastName: string;
   address1: string;

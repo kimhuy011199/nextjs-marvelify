@@ -69,6 +69,7 @@ export const DELIVERY_METHOD_OPTIONS = [
 ];
 
 export const DEFAULT_SHIPPING_ADDRESS = {
+  id: '',
   firstName: '',
   lastName: '',
   address1: '',

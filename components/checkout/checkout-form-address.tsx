@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -109,8 +110,9 @@ const CheckoutFormAddress: React.FC = () => {
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     const { email, ...shippingAdress } = data;
+    const id = uuidv4();
     checkoutState.setEmail(email);
-    checkoutState.setShippingAddress(shippingAdress);
+    checkoutState.setShippingAddress({ ...shippingAdress, id });
     router.push(`${ROUTES.CHECKOUT}?step=${CHECKOUT_STEPS.DELIVERY}`);
   };
 
