@@ -5,6 +5,7 @@ import { Section } from '@/components/section';
 import ListProducts from './components/list-products';
 import ProductsListSkeleton from '@/components/skeletons/products-list';
 import { ProductSearchParamsInterface } from '@/lib/data/products';
+import ProductsPagination from '@/components/products/products-pagination';
 
 const Page: React.FC = ({
   searchParams,
@@ -20,18 +21,21 @@ const Page: React.FC = ({
         <div className="grid grid-cols-4 gap-10">
           <ProductsQueries searchParams={searchParams} />
           <div className="col-span-3">
-            <Suspense
-              key={suspenseKey}
-              fallback={
-                <ProductsListSkeleton
-                  itemEachRow={3}
-                  rows={2}
-                  className="grid-cols-3"
-                />
-              }
-            >
-              <ListProducts searchParams={searchParams} />
-            </Suspense>
+            <div className="flex flex-col gap-8">
+              <Suspense
+                key={suspenseKey}
+                fallback={
+                  <ProductsListSkeleton
+                    itemEachRow={3}
+                    rows={2}
+                    className="grid-cols-3"
+                  />
+                }
+              >
+                <ListProducts searchParams={searchParams} />
+              </Suspense>
+              {/* <ProductsPagination /> */}
+            </div>
           </div>
         </div>
       </Container>
