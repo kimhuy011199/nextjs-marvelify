@@ -7,7 +7,7 @@ const discounts = {
   '10OFF': {
     currency: 'USD',
     value: 10,
-    code: '1OFF',
+    code: '10OFF',
   },
   '12OFF': {
     currency: 'USD',
