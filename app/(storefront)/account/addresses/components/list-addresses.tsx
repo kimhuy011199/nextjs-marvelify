@@ -1,6 +1,6 @@
 import React from 'react';
-import AccountAddressesList from '@/components/addresses/addresses-list';
-import AccountAddressesEmpty from '@/components/addresses/addresses-empty';
+import AddressesList from '@/components/addresses/addresses-list';
+import AddressesEmpty from '@/components/addresses/addresses-empty';
 import { getAddresses } from '@/lib/data/addresses';
 
 const ListAddresses: React.FC = async () => {
@@ -9,9 +9,9 @@ const ListAddresses: React.FC = async () => {
   return (
     <>
       {!addresses.length ? (
-        <AccountAddressesEmpty />
+        <AddressesEmpty />
       ) : (
-        <AccountAddressesList addresses={addresses} />
+        <AddressesList addresses={addresses} />
       )}
     </>
   );
