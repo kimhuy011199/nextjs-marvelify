@@ -32,7 +32,7 @@ const PAYMENT_METHOD_OPTIONS = [
   {
     name: 'Cash on Delivery',
     id: 'cod',
-    desc: 'Pay with cash when your order is delivered to you.',
+    description: 'Pay with cash when your order is delivered to you.',
   },
 ];
 
@@ -46,7 +46,9 @@ const CheckoutFormPayment: React.FC = () => {
   const checkoutState = useCheckout();
   const router = useRouter();
 
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {};
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    console.log('checkoutState', JSON.stringify(checkoutState.checkout));
+  };
 
   return (
     <CheckoutStepCard>
@@ -80,7 +82,7 @@ const CheckoutFormPayment: React.FC = () => {
                               </div>
                             </div>
                             <span className="text-accent-foreground font-normal pl-7">
-                              {method.desc}
+                              {method.description}
                             </span>
                           </FormLabel>
                         </FormItem>

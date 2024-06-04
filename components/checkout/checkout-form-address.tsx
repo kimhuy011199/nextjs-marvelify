@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   CHECKOUT_STEPS,
-  COUNTRY_OPTIONS,
   ROUTES,
   DEFAULT_SHIPPING_ADDRESS,
 } from '@/lib/constants';
@@ -25,59 +24,18 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import CheckoutSubmitAction from '@/components/checkout/checkout-submit-action';
+import CheckoutFormAddressSelection from '@/components/checkout/checkout-form-address-selection';
 import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCheckout } from '@/lib/hooks/use-checkout';
 import { Checkbox } from '@/components/ui/checkbox';
 import { getExampleAddress } from '@/lib/data/addresses';
-
-const FormSchema = z.object({
-  email: z.string().email('Invalid email address'),
-  firstName: z
-    .string()
-    .min(1, {
-      message: 'First name is required',
-    })
-    .refine((value) => value.trim() !== '', {
-      message: 'First name is required',
-    }),
-  lastName: z
-    .string()
-    .min(1, {
-      message: 'Last name is required',
-    })
-    .refine((value) => value.trim() !== '', {
-      message: 'Last name is required',
-    }),
-  address1: z
-    .string()
-    .min(1, {
-      message: 'Address is required',
-    })
-    .refine((value) => value.trim() !== '', {
-      message: 'Address is required',
-    }),
-  address2: z.string().optional(),
-  city: z
-    .string()
-    .min(1, {
-      message: 'City is required',
-    })
-    .refine((value) => value.trim() !== '', {
-      message: 'City is required',
-    }),
-  postalCode: z.string().regex(/^[0-9]{5,6}$/, 'Invalid postal code'),
-  province: z.string().optional(),
-  country: z.string(),
-});
+import AddressForm, {
+  FormSchema,
+  FormType,
+} from '@/components/addresses/address-form';
+import { AddressType } from '@/lib/types';
 
 const CheckoutFormAddress: React.FC = () => {
   const [isUseExampleAddress, setIsUseExampleAddress] = useState(false);
@@ -95,7 +53,6 @@ const CheckoutFormAddress: React.FC = () => {
     resolver: zodResolver(FormSchema),
     defaultValues,
   });
-  console.log('checkoutState', checkoutState.checkout);
   const router = useRouter();
 
   const handleUseExampleAddress = (checked: boolean | string) => {
@@ -106,6 +63,11 @@ const CheckoutFormAddress: React.FC = () => {
         ? { ...getExampleAddress(), email }
         : { ...DEFAULT_SHIPPING_ADDRESS, email }
     );
+  };
+
+  const handleChangeAddress = (addressValue: AddressType) => {
+    form.clearErrors();
+    form.reset({ ...addressValue, email: form.getValues('email') });
   };
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
@@ -144,7 +106,7 @@ const CheckoutFormAddress: React.FC = () => {
           <CheckoutStepDescription>
             The address where your order will be delivered.
           </CheckoutStepDescription>
-          <div className="flex items-center space-x-2 mt-3">
+          {/* <div className="flex items-center space-x-2 mt-3">
             <Checkbox
               id="address"
               checked={isUseExampleAddress}
@@ -159,134 +121,12 @@ const CheckoutFormAddress: React.FC = () => {
             >
               Use the sample shipping address
             </label>
-          </div>
+          </div> */}
           <CheckoutStepContent>
-            <div className="flex flex-col gap-2">
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>First name</FormLabel>
-                      <FormControl>
-                        <Input className="!my-1" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Last name</FormLabel>
-                      <FormControl>
-                        <Input className="!my-1" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <FormField
-                control={form.control}
-                name="address1"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Address</FormLabel>
-                    <FormControl>
-                      <Input className="!my-1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="address2"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Apartment, suite...</FormLabel>
-                    <FormControl>
-                      <Input className="!my-1" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>City</FormLabel>
-                      <FormControl>
-                        <Input className="!my-1" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="postalCode"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Postal code</FormLabel>
-                      <FormControl>
-                        <Input className="!my-1" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="province"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Province</FormLabel>
-                      <FormControl>
-                        <Input className="!my-1" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="country"
-                  render={({ field }) => (
-                    <FormItem className="space-y-1">
-                      <FormLabel>Country</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select country" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent className="!my-1">
-                          {COUNTRY_OPTIONS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
+            <CheckoutFormAddressSelection
+              handleChangeAddress={handleChangeAddress}
+            />
+            <AddressForm type={FormType.Checkout} form={form} />
             <CheckoutSubmitAction currentStep={CHECKOUT_STEPS.ADDRESS} />
           </CheckoutStepContent>
         </CheckoutStepCard>
