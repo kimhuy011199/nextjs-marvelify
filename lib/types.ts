@@ -85,3 +85,23 @@ export type DiscountType = {
   value: number;
   code: string;
 };
+
+export type OrderType = {
+  id: string;
+  email: string;
+  orderDate: string;
+  status: string;
+  currency: string;
+  total: number;
+  subTotal: number;
+  discount: {
+    value: number;
+    code: string;
+    currency: string;
+  };
+  lineItems: CartLineItemType[];
+  shippingAddress: AddressType;
+  billingAddress: AddressType;
+  deliveryMethod: DeliveryMethodType;
+  paymentMethod: PaymentType;
+};
