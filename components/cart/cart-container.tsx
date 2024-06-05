@@ -13,7 +13,7 @@ const CartContainer: React.FC = () => {
   return (
     <NonSSRWrapper>
       {cart.items.length ? (
-        <div className="flex gap-12 items-start">
+        <div className="flex flex-col lg:flex-row gap-12 items-stretch lg:items-start">
           <CartLines />
           <CartSummary />
         </div>

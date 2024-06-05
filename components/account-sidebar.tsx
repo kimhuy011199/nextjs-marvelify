@@ -11,13 +11,13 @@ const AccountSidebar: React.FC = () => {
   const pathname = usePathname();
 
   return (
-    <div className="min-w-60 h-60 border border-gray-200 shadow-sm rounded-2xl bg-white pb-4">
+    <div className="hidden lg:block min-w-60 h-[220px] border border-accent rounded-2xl bg-white pb-4">
       <h2 className="font-semibold pt-5 pb-4 px-6 text-lg">Account Setting</h2>
       <ul className="flex flex-col">
         <li>
           <Link
             className={twMerge(
-              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-gray-100 border-l-2 border-transparent',
+              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-muted border-l-2 border-transparent',
               pathname === ROUTES.ACCOUNT_PROFILE
                 ? 'text-primary border-l-primary'
                 : ''
@@ -31,7 +31,7 @@ const AccountSidebar: React.FC = () => {
         <li>
           <Link
             className={twMerge(
-              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-gray-100 border-l-2 border-transparent',
+              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-muted border-l-2 border-transparent',
               pathname === ROUTES.ACCOUNT_ADDRESSES
                 ? 'text-primary border-l-primary'
                 : ''
@@ -45,7 +45,7 @@ const AccountSidebar: React.FC = () => {
         <li>
           <Link
             className={twMerge(
-              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-gray-100 border-l-2 border-transparent',
+              'flex items-center gap-3 py-2.5 px-6 transition-all hover:bg-muted border-l-2 border-transparent',
               pathname === ROUTES.ACCOUNT_ORDERS
                 ? 'text-primary border-l-primary'
                 : ''
