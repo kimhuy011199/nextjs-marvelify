@@ -9,6 +9,7 @@ import Money from '@/components/money';
 import { CartLineItemType } from '@/lib/types';
 import { Trash2 } from 'lucide-react';
 import { useCart } from '@/lib/hooks/use-cart';
+import { ROUTES } from '@/lib/constants';
 
 interface CartLineItemProps {
   item: CartLineItemType;
@@ -28,6 +29,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
     id,
     availableQuantity,
   } = productVariant;
+  const productHref = `${ROUTES.PRODUCT}/${productHandle}`;
 
   const handleDeleteItem = () => {
     cart.removeItem(id);
@@ -40,7 +42,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
   return (
     <div className="flex gap-5">
       <Link
-        href={`/products/${productHandle}`}
+        href={productHref}
         className="border border-accent rounded-xl h-20 w-20 bg-white p-2 flex justify-center items-center"
       >
         <div className="w-full max-w-8">
@@ -48,10 +50,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
         </div>
       </Link>
       <div className="flex items-center w-full">
-        <Link
-          href={`/products/${productHandle}`}
-          className="flex flex-col mr-auto"
-        >
+        <Link href={productHref} className="flex flex-col mr-auto">
           <h3 className="text-lg font-medium">{productName}</h3>
           <span className="text-accent-foreground">Variant: {name}</span>
         </Link>
