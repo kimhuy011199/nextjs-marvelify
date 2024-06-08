@@ -90,7 +90,7 @@ export type OrderType = {
   id: string;
   email: string;
   orderDate: string;
-  status: string;
+  status: OrderStatusType;
   currency: string;
   total: number;
   subTotal: number;
@@ -105,3 +105,11 @@ export type OrderType = {
   deliveryMethod: DeliveryMethodType;
   paymentMethod: PaymentType;
 };
+
+export enum OrderStatusType {
+  Pending = 'Pending',
+  Processing = 'Processing',
+  Shipping = 'Shipping',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled',
+}

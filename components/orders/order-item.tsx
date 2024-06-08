@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import OrderLineItem from '@/components/orders/order-line-item';
 import { OrderType } from '@/lib/types';
 import Money from '@/components/money';
+import OrderStatusBadge from '@/components/orders/order-status-badge';
 
 interface OrderItemProps {
   order: OrderType;
@@ -28,15 +29,15 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-medium text-accent-foreground">
-            Status
-          </span>
-          <span className="font-medium">{order.status}</span>
-        </div>
-        <div className="flex flex-col">
-          <span className="text-sm font-medium text-accent-foreground">
             Total Price
           </span>
           <Money amount={order.total} currency={order.currency} />
+        </div>
+        <div className="flex flex-col items-start">
+          <span className="text-sm font-medium text-accent-foreground">
+            Order Status
+          </span>
+          <OrderStatusBadge status={order.status} />
         </div>
       </div>
       {order?.deliveryMethod?.estimatedDelivery ? (

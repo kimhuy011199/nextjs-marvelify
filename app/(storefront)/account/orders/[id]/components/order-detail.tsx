@@ -3,6 +3,7 @@ import { getOrderById } from '@/lib/data/orders';
 import OrderLineItem from '@/components/orders/order-line-item';
 import OrderSummary from '@/components/orders/order-summary';
 import OrderDelivery from '@/components/orders/order-info-delivery';
+import OrderStatusBadge from '@/components/orders/order-status-badge';
 
 interface OrderDetailProps {
   id: string;
@@ -18,10 +19,10 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
   return (
     <>
       <h2 className="font-semibold text-2xl pb-1">Order #{order.id}</h2>
-      <div className="grid grid-cols-2 mt-4 mb-8">
-        <div className="flex gap-4">
+      <div className="grid grid-cols-2 mt-4 mb-8 items-center">
+        <div className="flex gap-4 items-center">
           <span className="text-accent-foreground">Order status:</span>
-          <span>{order.status}</span>
+          <OrderStatusBadge status={order.status} />
         </div>
         <div className="flex gap-4">
           <span className="text-accent-foreground">Order date:</span>
