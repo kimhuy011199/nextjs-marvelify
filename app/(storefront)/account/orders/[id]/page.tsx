@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import OrderDetail from './components/order-detail';
+import OrderDetail from '@/components/orders/order-detail';
 import OrderDetailSkeleton from '@/components/skeletons/order-detail';
 
 const Page = async ({ params }: { params: { id: string } }) => {
