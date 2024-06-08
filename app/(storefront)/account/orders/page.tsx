@@ -7,6 +7,11 @@ import {
 } from '@/components/settings';
 import ListOrders from './components/list-orders';
 import OrdersListSkeleton from '@/components/skeletons/orders-list';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Orders - Marvel Caseshop',
+};
 
 const Page: React.FC = () => {
   return (

@@ -5,6 +5,7 @@ import OrderSummary from '@/components/orders/order-summary';
 import OrderDelivery from '@/components/orders/order-info-delivery';
 import OrderStatusBadge from '@/components/orders/order-status-badge';
 import { formatOrderDate } from '@/lib/utils';
+import Divider from '@/components/divider';
 
 interface OrderDetailProps {
   id: string;
@@ -20,7 +21,7 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
   return (
     <>
       <h2 className="font-semibold text-2xl pb-1">Order #{order.id}</h2>
-      <div className="grid grid-cols-2 mt-4 mb-8 items-center">
+      <div className="grid grid-cols-2 mt-4 items-center">
         <div className="flex gap-3 items-center">
           <span className="text-accent-foreground">Order status:</span>
           <OrderStatusBadge status={order.status} />
@@ -32,8 +33,9 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
           </span>
         </div>
       </div>
+      <Divider className="my-8" />
       <div>
-        <div className="flex flex-col lg:flex-row gap-12 mt-3">
+        <div className="flex flex-col lg:flex-row gap-12 mt-4">
           <ul className="w-full">
             {order.lineItems.map((lineItem) => (
               <OrderLineItem

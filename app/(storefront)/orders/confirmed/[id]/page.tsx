@@ -2,6 +2,11 @@ import React, { Suspense } from 'react';
 import OrderDetail from '@/components/orders/order-detail';
 import OrderDetailSkeleton from '@/components/skeletons/order-detail';
 import Container from '@/components/container';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Thank you - Marvel Caseshop',
+};
 
 const Page = async ({ params }: { params: { id: string } }) => {
   return (

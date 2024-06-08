@@ -7,6 +7,11 @@ import { Section, SectionHeader, SectionHeading } from '@/components/section';
 import { Button } from '@/components/ui/button';
 import { PERSONAL_LINKS } from '@/lib/constants';
 import FeaturedProducts from './components/featured-products';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Home - Marvel Caseshop',
+};
 
 const Home: React.FC = () => {
   return (

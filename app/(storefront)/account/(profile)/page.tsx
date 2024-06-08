@@ -7,6 +7,11 @@ import {
 } from '@/components/settings';
 import ProfileSettings from './components/profile-settings';
 import ProfileSettingsSkeleton from '@/components/skeletons/profile-settings';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Profile - Marvel Caseshop',
+};
 
 const Page: React.FC = () => {
   return (

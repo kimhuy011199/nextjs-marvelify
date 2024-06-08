@@ -7,6 +7,11 @@ import {
 } from '@/components/settings';
 import ListAddresses from './components/list-addresses';
 import AddressesListSkeleton from '@/components/skeletons/addresses-list';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Addresses - Marvel Caseshop',
+};
 
 const Page: React.FC = () => {
   return (

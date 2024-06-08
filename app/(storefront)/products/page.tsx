@@ -6,6 +6,11 @@ import ListProducts from './components/list-products';
 import ProductsListSkeleton from '@/components/skeletons/products-list';
 import { ProductSearchParamsInterface } from '@/lib/data/products';
 import ProductsPagination from '@/components/products/products-pagination';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Products - Marvel Caseshop',
+};
 
 const Page: React.FC = ({
   searchParams,
