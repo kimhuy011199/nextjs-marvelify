@@ -6,6 +6,7 @@ import OrderLineItem from '@/components/orders/order-line-item';
 import { OrderType } from '@/lib/types';
 import Money from '@/components/money';
 import OrderStatusBadge from '@/components/orders/order-status-badge';
+import { formatOrderDate } from '@/lib/utils';
 
 interface OrderItemProps {
   order: OrderType;
@@ -25,7 +26,9 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           <span className="text-sm font-medium text-accent-foreground">
             Order Date
           </span>
-          <span className="font-medium">{order.orderDate}</span>
+          <span className="font-medium">
+            {formatOrderDate(order.orderDate)}
+          </span>
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-medium text-accent-foreground">
