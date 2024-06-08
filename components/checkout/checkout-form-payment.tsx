@@ -48,6 +48,11 @@ const CheckoutFormPayment: React.FC = () => {
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     console.log('checkoutState', JSON.stringify(checkoutState.checkout));
+    // Create order
+    // Remove cart
+    // Redirect to thank you page
+    const thankYouPageUrl = `${ROUTES.THANK_YOU}/1001`;
+    router.push(thankYouPageUrl);
   };
 
   return (

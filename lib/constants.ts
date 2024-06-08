@@ -7,6 +7,7 @@ export const ROUTES = {
   CART: '/cart',
   CHECKOUT: '/checkout',
   SEARCH: '/search',
+  THANK_YOU: '/orders/confirmed',
 };
 
 export const CHECKOUT_STEPS = {
