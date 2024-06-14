@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -11,6 +11,8 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import { SEARCH_PARAMS_KEYS } from '@/lib/constants';
+import { sortQueryParams } from '@/lib/utils';
 
 interface ProductsFilterProps {
   filterKey: string;
@@ -30,6 +32,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
   const { replace } = useRouter();
   const searchParams = useSearchParams();
   const defaultValue = searchParams.getAll(filterKey) || [];
+  const [hasChanged, setHasChanged] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -48,7 +51,14 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
     } else {
       params.delete(filterKey);
     }
-    replace(`${pathname}?${params.toString()}`);
+
+    // Remove page query param if filter values have changed
+    if (hasChanged) {
+      params.delete(SEARCH_PARAMS_KEYS.PAGE);
+    }
+
+    const sortedParams = sortQueryParams(params);
+    replace(`${pathname}?${sortedParams.toString()}`);
   }, [filterValues.length]);
 
   return (
@@ -76,6 +86,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
                             <Checkbox
                               checked={field.value?.includes(item.value)}
                               onCheckedChange={(checked) => {
+                                setHasChanged(true);
                                 checked
                                   ? field.onChange([...field.value, item.value])
                                   : field.onChange(

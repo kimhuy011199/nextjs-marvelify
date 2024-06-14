@@ -13,7 +13,7 @@ export type VariantType = {
 export type ProductType = {
   id: string;
   handle: string;
-  createdAt: string;
+  createdAt: string | Date;
   name: string;
   description: string;
   isFeatured: boolean;

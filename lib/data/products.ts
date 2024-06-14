@@ -1,10 +1,12 @@
-import { ProductType } from '@/lib/types';
 import { db } from '@/lib/db';
+
+const PRODUCTS_PER_PAGE = 6;
 
 export interface ProductSearchParamsInterface {
   sort?: string;
   availability?: string | string[];
   feature?: string | string[];
+  page?: number;
 }
 
 const getProducts = async (
@@ -63,8 +65,11 @@ const getProducts = async (
     }
   }
 
-  const products = await db.product.findMany({
-    orderBy,
+  let skip = searchParams?.page
+    ? (searchParams.page - 1) * PRODUCTS_PER_PAGE
+    : 0;
+
+  const filter = {
     where: {
       AND: [
         {
@@ -75,11 +80,25 @@ const getProducts = async (
         },
       ],
     },
+  };
+
+  const products = await db.product.findMany({
+    orderBy,
+    ...filter,
+    skip,
+    take: PRODUCTS_PER_PAGE,
     include: {
       variants: true,
     },
   });
-  return products;
+  const totalProducts = await db.product.count(filter);
+  const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+
+  return {
+    products,
+    totalProducts,
+    totalPages,
+  };
 };
 
 const getProductByHandle = async (handle: string) => {

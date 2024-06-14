@@ -20,6 +20,7 @@ export const SEARCH_PARAMS_KEYS = {
   SORT: 'sort',
   AVAILABILITY: 'availability',
   FEATURE: 'feature',
+  PAGE: 'page',
 };
 
 export const SORT_OPTIONS = [

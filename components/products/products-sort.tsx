@@ -11,6 +11,7 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import { SEARCH_PARAMS_KEYS, SORT_OPTIONS } from '@/lib/constants';
+import { sortQueryParams } from '@/lib/utils';
 
 const ProductsSort: React.FC = () => {
   const pathname = usePathname();
@@ -26,7 +27,8 @@ const ProductsSort: React.FC = () => {
     } else {
       params.delete(SEARCH_PARAMS_KEYS.SORT);
     }
-    replace(`${pathname}?${params.toString()}`);
+    const sortedParams = sortQueryParams(params);
+    replace(`${pathname}?${sortedParams.toString()}`);
   };
 
   return (
