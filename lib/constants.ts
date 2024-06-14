@@ -35,7 +35,7 @@ export const AVAILABILITY_OPTIONS = [
 
 export const FEAUTES_OPTIONS = [
   { label: 'MagSafe compatibility', value: 'magsafe' },
-  { label: 'Wireless charging', value: 'wifi' },
+  { label: 'Wireless charging', value: 'wireless' },
   { label: 'Shockproof protection', value: 'shockproof' },
 ];
 

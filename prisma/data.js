@@ -8,7 +8,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Spiderman logo, making it a must-have for any Spiderman fan.',
     isFeatured: true,
     isAvailableForSale: true,
-    features: '',
+    features: 'magsafe,shockproof',
     price: 20,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049345/marvelify/rau45vtlpcbmdfoi6l7s.jpg',
@@ -22,7 +22,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Ironman logo, making it a must-have for any Ironman fan.',
     isFeatured: true,
     isAvailableForSale: true,
-    features: '',
+    features: 'shockproof',
     price: 22,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/qfgbbcrt3tm33bntbyjn.jpg',
@@ -36,7 +36,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Loki logo, making it a must-have for any Loki fan.',
     isFeatured: false,
     isAvailableForSale: true,
-    features: '',
+    features: 'shockproof,wireless',
     price: 18,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/awmwjyaorx2gqhtxzilq.jpg',
@@ -50,7 +50,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Black Panther logo, making it a must-have for any Black Panther fan.',
     isFeatured: true,
     isAvailableForSale: false,
-    features: '',
+    features: 'shockproof,wireless,magsafe',
     price: 20,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/w8fgeakltpciwjlt4wug.jpg',
@@ -78,7 +78,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Captain Marvel logo, making it a must-have for any Captain Marvel fan.',
     isFeatured: false,
     isAvailableForSale: true,
-    features: '',
+    features: 'wireless',
     price: 14,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/yo1wuufz643je7bksoxg.jpg',
@@ -92,7 +92,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic The Falcon logo, making it a must-have for any The Falcon fan.',
     isFeatured: false,
     isAvailableForSale: true,
-    features: '',
+    features: 'shockproof,wireless,magsafe',
     price: 17,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/tgjawqmgtyk1roqubbiw.jpg',
@@ -106,7 +106,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Thor logo, making it a must-have for any Thor fan.',
     isFeatured: false,
     isAvailableForSale: true,
-    features: '',
+    features: 'magsafe,wireless',
     price: 18,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/pli28hungwrlypojzxdi.jpg',
@@ -134,7 +134,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Captain America logo, making it a must-have for any Captain America fan.',
     isFeatured: false,
     isAvailableForSale: true,
-    features: '',
+    features: 'shockproof,wireless',
     price: 18,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/t4zmzrsqhs3wld48khig.jpg',
@@ -148,7 +148,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Black Widow logo, making it a must-have for any Black Widow fan.',
     isFeatured: false,
     isAvailableForSale: true,
-    features: '',
+    features: 'wireless',
     price: 15,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/yr2cfbid9p1knphshg81.jpg',
@@ -162,7 +162,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Moon Knight logo, making it a must-have for any Moon Knight fan.',
     isFeatured: true,
     isAvailableForSale: true,
-    features: '',
+    features: 'magsafe,shockproof',
     price: 15,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/ygoy2nphq53y82jkjsbq.jpg',
@@ -190,7 +190,7 @@ const products = [
       'Made with high-quality materials, the case features a sleek design with the iconic Antman logo, making it a must-have for any Antman fan.',
     isFeatured: false,
     isAvailableForSale: false,
-    features: '',
+    features: 'wireless,magsafe',
     price: 14,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716136080/marvelify/vedr2zh54dvdt4kyr8ek.jpg',
