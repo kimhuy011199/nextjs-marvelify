@@ -24,7 +24,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <div className="py-4 px-5">
           <h3 className="font-medium">{product.name}</h3>
           <Money
-            amount={product.variants[0].priceAfterDiscounted}
+            amount={product.variants[0].discountedPrice}
             originalAmount={product.variants[0].price}
             currency={product.variants[0].currency}
           />

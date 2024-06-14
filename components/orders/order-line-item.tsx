@@ -57,7 +57,7 @@ const OrderLineItem: React.FC<OrderLineItemProps> = ({
         </div>
       </Link>
       <Money
-        amount={productVariant.priceAfterDiscounted * orderLineItem.quantity}
+        amount={productVariant.discountedPrice * orderLineItem.quantity}
         currency={productVariant.currency}
         originalAmount={productVariant.price * orderLineItem.quantity}
         className={size === 'sm' ? 'flex-col' : 'flex-row'}

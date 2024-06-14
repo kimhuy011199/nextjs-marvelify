@@ -1,4 +1,5 @@
 import { ProductType } from '@/lib/types';
+import { db } from '@/lib/db';
 import delay from 'delay';
 
 const originalProducts = [
@@ -21,7 +22,7 @@ const originalProducts = [
         productName: 'Spiderman Case',
         name: 'Silver',
         price: 20,
-        priceAfterDiscounted: 20,
+        discountedPrice: 20,
         currency: 'USD',
         availableQuantity: 6,
         previewImg:
@@ -33,7 +34,7 @@ const originalProducts = [
         productName: 'Spiderman Case',
         name: 'Black',
         price: 25,
-        priceAfterDiscounted: 22,
+        discountedPrice: 22,
         currency: 'USD',
         availableQuantity: 8,
         previewImg:
@@ -60,7 +61,7 @@ const originalProducts = [
         productName: 'Ironman Case',
         name: 'Silver',
         price: 22,
-        priceAfterDiscounted: 20,
+        discountedPrice: 20,
         currency: 'USD',
         availableQuantity: 45,
         previewImg:
@@ -72,7 +73,7 @@ const originalProducts = [
         productName: 'Ironman Case',
         name: 'Black',
         price: 22,
-        priceAfterDiscounted: 22,
+        discountedPrice: 22,
         currency: 'USD',
         availableQuantity: 45,
         previewImg:
@@ -99,7 +100,7 @@ const originalProducts = [
         productName: 'Loki Case',
         name: 'Silver',
         price: 18,
-        priceAfterDiscounted: 18,
+        discountedPrice: 18,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -111,7 +112,7 @@ const originalProducts = [
         productName: 'Loki Case',
         name: 'Black',
         price: 18,
-        priceAfterDiscounted: 18,
+        discountedPrice: 18,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -138,7 +139,7 @@ const originalProducts = [
         productName: 'Black Panther Case',
         name: 'Silver',
         price: 20,
-        priceAfterDiscounted: 20,
+        discountedPrice: 20,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -150,7 +151,7 @@ const originalProducts = [
         productName: 'Black Panther Case',
         name: 'Black',
         price: 20,
-        priceAfterDiscounted: 18,
+        discountedPrice: 18,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -177,7 +178,7 @@ const originalProducts = [
         productName: 'Thanos Case',
         name: 'Silver',
         price: 16,
-        priceAfterDiscounted: 16,
+        discountedPrice: 16,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -189,7 +190,7 @@ const originalProducts = [
         productName: 'Thanos Case',
         name: 'Black',
         price: 16,
-        priceAfterDiscounted: 16,
+        discountedPrice: 16,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -216,7 +217,7 @@ const originalProducts = [
         productName: 'Captain Marvel Case',
         name: 'Silver',
         price: 14,
-        priceAfterDiscounted: 14,
+        discountedPrice: 14,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -228,7 +229,7 @@ const originalProducts = [
         productName: 'Captain Marvel Case',
         name: 'Black',
         price: 14,
-        priceAfterDiscounted: 14,
+        discountedPrice: 14,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -255,7 +256,7 @@ const originalProducts = [
         productName: 'The Falcon Case',
         name: 'Silver',
         price: 17,
-        priceAfterDiscounted: 17,
+        discountedPrice: 17,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -267,7 +268,7 @@ const originalProducts = [
         productName: 'The Falcon Case',
         name: 'Black',
         price: 17,
-        priceAfterDiscounted: 17,
+        discountedPrice: 17,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -294,7 +295,7 @@ const originalProducts = [
         productName: 'Thor Case',
         name: 'Silver',
         price: 18,
-        priceAfterDiscounted: 15,
+        discountedPrice: 15,
         currency: 'USD',
         availableQuantity: 6,
         previewImg:
@@ -306,7 +307,7 @@ const originalProducts = [
         productName: 'Thor Case',
         name: 'Black',
         price: 15,
-        priceAfterDiscounted: 15,
+        discountedPrice: 15,
         currency: 'USD',
         availableQuantity: 4,
         previewImg:
@@ -333,7 +334,7 @@ const originalProducts = [
         productName: 'Captain America Case',
         name: 'Silver',
         price: 14,
-        priceAfterDiscounted: 14,
+        discountedPrice: 14,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -345,7 +346,7 @@ const originalProducts = [
         productName: 'Captain America Case',
         name: 'Black',
         price: 16,
-        priceAfterDiscounted: 16,
+        discountedPrice: 16,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -372,7 +373,7 @@ const originalProducts = [
         productName: 'Captain America Case',
         name: 'Silver',
         price: 18,
-        priceAfterDiscounted: 18,
+        discountedPrice: 18,
         currency: 'USD',
         availableQuantity: 20,
         previewImg:
@@ -384,7 +385,7 @@ const originalProducts = [
         productName: 'Captain America Case',
         name: 'Black',
         price: 20,
-        priceAfterDiscounted: 17,
+        discountedPrice: 17,
         currency: 'USD',
         availableQuantity: 20,
         previewImg:
@@ -411,7 +412,7 @@ const originalProducts = [
         productName: 'Black Widow Case',
         name: 'Silver',
         price: 15,
-        priceAfterDiscounted: 15,
+        discountedPrice: 15,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -423,7 +424,7 @@ const originalProducts = [
         productName: 'Black Widow Case',
         name: 'Black',
         price: 15,
-        priceAfterDiscounted: 15,
+        discountedPrice: 15,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -450,7 +451,7 @@ const originalProducts = [
         productName: 'Moon Knight Case',
         name: 'Silver',
         price: 15,
-        priceAfterDiscounted: 12,
+        discountedPrice: 12,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -462,7 +463,7 @@ const originalProducts = [
         productName: 'Moon Knight Case',
         name: 'Black',
         price: 14,
-        priceAfterDiscounted: 12,
+        discountedPrice: 12,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -489,7 +490,7 @@ const originalProducts = [
         productName: 'Hawkeye Case',
         name: 'Silver',
         price: 19,
-        priceAfterDiscounted: 19,
+        discountedPrice: 19,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -501,7 +502,7 @@ const originalProducts = [
         productName: 'Hawkeye Case',
         name: 'Black',
         price: 19,
-        priceAfterDiscounted: 19,
+        discountedPrice: 19,
         currency: 'USD',
         availableQuantity: 40,
         previewImg:
@@ -528,7 +529,7 @@ const originalProducts = [
         productName: 'Antman Case',
         name: 'Silver',
         price: 14,
-        priceAfterDiscounted: 14,
+        discountedPrice: 14,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -540,7 +541,7 @@ const originalProducts = [
         productName: 'Antman Case',
         name: 'Black',
         price: 14,
-        priceAfterDiscounted: 14,
+        discountedPrice: 14,
         currency: 'USD',
         availableQuantity: 0,
         previewImg:
@@ -594,18 +595,36 @@ const getProducts = async (
 };
 
 const getProductByHandle = async (handle: string) => {
-  await delay(2000);
-  return originalProducts.find((product) => product.handle === handle);
+  const product = await db.product.findFirst({
+    where: {
+      handle: handle,
+    },
+    include: {
+      variants: true,
+    },
+  });
+  return product;
 };
 
 const getFeaturedProducts = async () => {
-  await delay(2000);
-  return originalProducts.filter((product) => product.isFeatured);
+  const featuredProducts = await db.product.findMany({
+    where: {
+      isFeatured: true,
+    },
+    include: {
+      variants: true,
+    },
+  });
+  return featuredProducts;
 };
 
 const getRelatedProducts = async (handle: string) => {
-  await delay(2000);
-  return originalProducts
+  const products = await db.product.findMany({
+    include: {
+      variants: true,
+    },
+  });
+  return products
     .filter((product) => product.handle !== handle)
     .sort(() => Math.random() - 0.5)
     .slice(0, 4);

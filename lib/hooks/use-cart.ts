@@ -56,7 +56,7 @@ const useCart = create(
       calculateSubTotal: () => {
         return get().items.reduce(
           (acc, item) =>
-            acc + item.productVariant.priceAfterDiscounted * item.quantity,
+            acc + item.productVariant.discountedPrice * item.quantity,
           0
         );
       },

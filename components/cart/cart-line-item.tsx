@@ -24,7 +24,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
     productHandle,
     productName,
     currency,
-    priceAfterDiscounted,
+    discountedPrice,
     price,
     id,
     availableQuantity,
@@ -70,7 +70,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
         />
         <div className="min-w-24 text-right">
           <Money
-            amount={priceAfterDiscounted}
+            amount={discountedPrice}
             currency={currency}
             originalAmount={price}
             className="flex-col items-end gap-0"
@@ -78,7 +78,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
         </div>
         <div className="min-w-24 text-right">
           <Money
-            amount={priceAfterDiscounted * quantity}
+            amount={discountedPrice * quantity}
             currency={currency}
             className="justify-end"
           />

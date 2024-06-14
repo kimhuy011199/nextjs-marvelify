@@ -34,9 +34,7 @@ const CheckoutItemsList: React.FC = () => {
             </div>
             <div className="min-w-24 text-right">
               <Money
-                amount={
-                  item.productVariant.priceAfterDiscounted * item.quantity
-                }
+                amount={item.productVariant.discountedPrice * item.quantity}
                 originalAmount={item.productVariant.price * item.quantity}
                 currency={item.productVariant.currency}
                 className="justify-end flex-col gap-0"

@@ -119,7 +119,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
             {product.description}
           </p>
           <Money
-            amount={currentVariant.priceAfterDiscounted}
+            amount={currentVariant.discountedPrice}
             originalAmount={currentVariant.price}
             currency={currentVariant.currency}
             className="text-2xl font-bold"

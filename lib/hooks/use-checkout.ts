@@ -98,8 +98,7 @@ const useCheckout = create<CheckoutStore>((set, get) => ({
   calculateSubTotal: () => {
     const { checkout } = get();
     const subTotal = checkout.lineItems.reduce(
-      (acc, item) =>
-        acc + item.productVariant.priceAfterDiscounted * item.quantity,
+      (acc, item) => acc + item.productVariant.discountedPrice * item.quantity,
       0
     );
     set((state) => ({

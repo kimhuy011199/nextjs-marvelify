@@ -4,7 +4,7 @@ export type VariantType = {
   productName: string;
   name: string;
   price: number;
-  priceAfterDiscounted: number;
+  discountedPrice: number;
   currency: string;
   availableQuantity: number;
   previewImg: string;

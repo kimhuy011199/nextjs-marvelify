@@ -24,7 +24,7 @@ const orders: OrderType[] = [
           productName: 'Ironman Case',
           name: 'Silver',
           price: 22,
-          priceAfterDiscounted: 20,
+          discountedPrice: 20,
           currency: 'USD',
           availableQuantity: 45,
           previewImg:
@@ -92,7 +92,7 @@ const orders: OrderType[] = [
           productName: 'Moon Knight Case',
           name: 'Silver',
           price: 15,
-          priceAfterDiscounted: 12,
+          discountedPrice: 12,
           currency: 'USD',
           availableQuantity: 40,
           previewImg:
@@ -108,7 +108,7 @@ const orders: OrderType[] = [
           productName: 'Ironman Case',
           name: 'Silver',
           price: 22,
-          priceAfterDiscounted: 20,
+          discountedPrice: 20,
           currency: 'USD',
           availableQuantity: 45,
           previewImg:
