@@ -9,6 +9,7 @@ const products = [
     isFeatured: true,
     isAvailableForSale: true,
     features: '',
+    price: 20,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049345/marvelify/rau45vtlpcbmdfoi6l7s.jpg',
   },
@@ -22,6 +23,7 @@ const products = [
     isFeatured: true,
     isAvailableForSale: true,
     features: '',
+    price: 22,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/qfgbbcrt3tm33bntbyjn.jpg',
   },
@@ -35,6 +37,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 18,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/awmwjyaorx2gqhtxzilq.jpg',
   },
@@ -48,6 +51,7 @@ const products = [
     isFeatured: true,
     isAvailableForSale: false,
     features: '',
+    price: 20,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/w8fgeakltpciwjlt4wug.jpg',
   },
@@ -61,6 +65,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: false,
     features: '',
+    price: 16,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/wkmvgcz9atudvmffjjmd.jpg',
   },
@@ -74,6 +79,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 14,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/yo1wuufz643je7bksoxg.jpg',
   },
@@ -87,6 +93,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 17,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/tgjawqmgtyk1roqubbiw.jpg',
   },
@@ -100,6 +107,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 18,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/pli28hungwrlypojzxdi.jpg',
   },
@@ -113,6 +121,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: false,
     features: '',
+    price: 14,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/xjqv98p7d6uwrfev5seg.jpg',
   },
@@ -126,6 +135,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 18,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/t4zmzrsqhs3wld48khig.jpg',
   },
@@ -139,6 +149,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 15,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/yr2cfbid9p1knphshg81.jpg',
   },
@@ -152,6 +163,7 @@ const products = [
     isFeatured: true,
     isAvailableForSale: true,
     features: '',
+    price: 15,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/ygoy2nphq53y82jkjsbq.jpg',
   },
@@ -165,6 +177,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: true,
     features: '',
+    price: 19,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716049343/marvelify/zalmbvrlfqr1dxnirwfo.jpg',
   },
@@ -178,6 +191,7 @@ const products = [
     isFeatured: false,
     isAvailableForSale: false,
     features: '',
+    price: 14,
     previewImg:
       'https://res.cloudinary.com/cloudinaryassets/image/upload/v1716136080/marvelify/vedr2zh54dvdt4kyr8ek.jpg',
   },

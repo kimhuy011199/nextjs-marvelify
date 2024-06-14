@@ -32,5 +32,6 @@ model Product {
   isAvailableForSale Boolean
   features           String
   previewImg         String
+  price              Float
   variants           Variant[]
 }

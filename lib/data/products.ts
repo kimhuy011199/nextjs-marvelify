@@ -1,6 +1,5 @@
 import { ProductType } from '@/lib/types';
 import { db } from '@/lib/db';
-import delay from 'delay';
 
 const originalProducts = [
   {
@@ -560,38 +559,56 @@ export interface ProductSearchParamsInterface {
 const getProducts = async (
   searchParams: ProductSearchParamsInterface | undefined
 ) => {
-  await delay(2000);
-  let products = JSON.parse(JSON.stringify(originalProducts)) as ProductType[];
+  // let products = JSON.parse(JSON.stringify(originalProducts)) as ProductType[];
 
-  if (!searchParams) {
-    return products;
-  }
+  // if (!searchParams) {
+  //   const products = await db.product.findMany({
+  //     include: {
+  //       variants: true,
+  //     },
+  //   });
+  //   return products;
+  // }
 
+  let orderBy = {};
   if (searchParams?.sort) {
-    products.sort((a, b) => {
-      if (searchParams.sort === 'highest') {
-        return b.variants[0].price - a.variants[0].price;
-      }
-      if (searchParams.sort === 'lowest') {
-        return a.variants[0].price - b.variants[0].price;
-      }
-      return 0;
-    });
+    switch (searchParams?.sort) {
+      case 'latest':
+        orderBy = { createdAt: 'desc' };
+        break;
+      case 'highest':
+        orderBy = { price: 'desc' };
+        break;
+      case 'lowest':
+        orderBy = { price: 'asc' };
+        break;
+      default:
+        orderBy = { createdAt: 'desc' };
+        break;
+    }
   }
 
-  if (searchParams?.availability) {
-    products = products.filter((product) => {
-      if (searchParams.availability === 'in') {
-        return product.isAvailableForSale;
-      }
-      if (searchParams.availability === 'out') {
-        return !product.isAvailableForSale;
-      }
-      return true;
-    });
-  }
-
+  const products = await db.product.findMany({
+    orderBy,
+    include: {
+      variants: true,
+    },
+  });
   return products;
+
+  // if (searchParams?.availability) {
+  //   products = products.filter((product) => {
+  //     if (searchParams.availability === 'in') {
+  //       return product.isAvailableForSale;
+  //     }
+  //     if (searchParams.availability === 'out') {
+  //       return !product.isAvailableForSale;
+  //     }
+  //     return true;
+  //   });
+  // }
+
+  // return products;
 };
 
 const getProductByHandle = async (handle: string) => {

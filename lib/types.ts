@@ -20,6 +20,7 @@ export type ProductType = {
   isAvailableForSale: boolean;
   features: string;
   previewImg: string;
+  price: number;
   variants: VariantType[];
 };
 
