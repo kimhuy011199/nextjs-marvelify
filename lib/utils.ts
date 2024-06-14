@@ -66,3 +66,17 @@ export const formatOrderDate = (date: string) => {
     day: 'numeric',
   });
 };
+
+// Sort query params by keys and values to use the cached page
+export const sortQueryParams = (params: URLSearchParams) => {
+  const sortedParamsArray = Array.from(params.entries()).sort((a, b) => {
+    const keyCompare = a[0].localeCompare(b[0]);
+    if (keyCompare !== 0) {
+      return keyCompare; // Sort primarily by keys
+    } else {
+      return a[1].localeCompare(b[1]); // If keys are equal, sort by values
+    }
+  });
+  const sortedParams = new URLSearchParams(sortedParamsArray);
+  return sortedParams;
+};
