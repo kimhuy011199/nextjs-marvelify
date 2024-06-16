@@ -564,4 +564,60 @@ const variants = [
   },
 ];
 
-module.exports = { products, variants };
+const discounts = [
+  {
+    currency: 'USD',
+    value: 5,
+    code: '5OFF',
+  },
+  {
+    currency: 'USD',
+    value: 10,
+    code: '10OFF',
+  },
+  {
+    currency: 'USD',
+    value: 12,
+    code: '12OFF',
+  },
+];
+
+const deliveryMethods = [
+  {
+    name: 'Marvel Express Standard',
+    id: 'standard',
+    price: 10,
+    currency: 'USD',
+    estimatedDelivery: 'Next 5 days',
+  },
+  {
+    name: 'Marvel Express Expedited',
+    id: 'expedited',
+    price: 15,
+    currency: 'USD',
+    estimatedDelivery: 'Next 3 days',
+  },
+  {
+    name: 'Marvel Express Premium',
+    id: 'premium',
+    price: 20,
+    currency: 'USD',
+    estimatedDelivery: 'Tomorrow',
+  },
+];
+
+const paymentMethods = [
+  {
+    id: 'cod',
+    name: 'COD',
+    description: 'Cash on Delivery',
+  },
+];
+
+module.exports = {
+  products,
+  variants,
+  discounts,
+  deliveryMethods,
+  paymentMethods,
+};

@@ -1,5 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
-const { variants, products } = require('./data.js');
+const {
+  products,
+  variants,
+  discounts,
+  deliveryMethods,
+  paymentMethods,
+} = require('./data.js');
 const prisma = new PrismaClient();
 
 const load = async () => {
@@ -10,6 +16,15 @@ const load = async () => {
     await prisma.product.deleteMany();
     console.log('Deleted records in product table');
 
+    await prisma.discount.deleteMany();
+    console.log('Deleted records in discount table');
+
+    await prisma.deliveryMethod.deleteMany();
+    console.log('Deleted records in delivery method table');
+
+    await prisma.paymentMethod.deleteMany();
+    console.log('Deleted records in payment method table');
+
     await prisma.product.createMany({
       data: products,
     });
@@ -19,6 +34,21 @@ const load = async () => {
       data: variants,
     });
     console.log('Added variant data');
+
+    await prisma.discount.createMany({
+      data: discounts,
+    });
+    console.log('Added discount data');
+
+    await prisma.deliveryMethod.createMany({
+      data: deliveryMethods,
+    });
+    console.log('Added delivery method data');
+
+    await prisma.paymentMethod.createMany({
+      data: paymentMethods,
+    });
+    console.log('Added payment method data');
 
     console.log('Finish seeding data 🚀');
   } catch (e) {
