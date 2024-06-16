@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Variant {
-  id                String  @id @default(uuid())
+  id                String         @id @default(uuid())
   productHandle     String
   productName       String
   name              String
@@ -19,7 +19,8 @@ model Variant {
   availableQuantity Int
   previewImg        String
   productId         String
-  product           Product @relation(fields: [productId], references: [id])
+  product           Product        @relation(fields: [productId], references: [id])
+  cartLineItems     CartLineItem[]
 }
 
 model Product {
@@ -34,4 +35,79 @@ model Product {
   previewImg         String
   price              Float
   variants           Variant[]
+}
+
+model Discount {
+  currency String
+  value    Float
+  code     String  @id @unique
+  orders   Order[]
+}
+
+model Address {
+  id             String  @id @default(uuid())
+  firstName      String
+  lastName       String
+  address1       String
+  address2       String?
+  city           String
+  province       String?
+  postalCode     String
+  country        String
+  shippingOrders Order[] @relation("ShippingAddress")
+  billingOrders  Order[] @relation("BillingAddress")
+}
+
+model DeliveryMethod {
+  id                String  @id
+  name              String
+  price             Float
+  currency          String
+  estimatedDelivery String
+  orders            Order[]
+}
+
+model PaymentMethod {
+  id          String  @id
+  name        String
+  description String
+  orders      Order[]
+}
+
+model Cart {
+  id      String         @id @default(uuid())
+  items   CartLineItem[]
+  order   Order?
+  orderId String?
+}
+
+model CartLineItem {
+  id               String  @id @default(uuid())
+  quantity         Int
+  cart             Cart    @relation(fields: [cartId], references: [id])
+  cartId           String
+  productVariantId String
+  productVariant   Variant @relation(fields: [productVariantId], references: [id])
+}
+
+model Order {
+  id                String         @id @default(uuid())
+  email             String
+  currency          String
+  total             Float
+  subTotal          Float
+  discount          Discount?      @relation(fields: [discountCode], references: [code])
+  discountCode      String?
+  cart              Cart           @relation(fields: [cartId], references: [id])
+  cartId            String         @unique
+  shippingAddress   Address        @relation(name: "ShippingAddress", fields: [shippingAddressId], references: [id])
+  shippingAddressId String
+  billingAddress    Address        @relation(name: "BillingAddress", fields: [billingAddressId], references: [id])
+  billingAddressId  String
+  deliveryMethod    DeliveryMethod @relation(fields: [deliveryMethodId], references: [id])
+  deliveryMethodId  String
+  paymentMethod     PaymentMethod  @relation(fields: [paymentMethodId], references: [id])
+  paymentMethodId   String
+  orderDate         DateTime       @default(now())
+  status            String
 }

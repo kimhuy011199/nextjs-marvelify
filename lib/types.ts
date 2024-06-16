@@ -58,27 +58,21 @@ export type PaymentType = {
   id: string;
   name: string;
   description: string;
-  price: number;
-  currency: string;
 };
 
 export type CheckoutType = {
   id: string;
   email: string;
-  createdAt: string;
   currency: string;
   total: number;
   subTotal: number;
-  discount: {
-    value: number;
-    code: string;
-    currency: string;
-  };
+  discount?: DiscountType;
   lineItems: CartLineItemType[];
   shippingAddress: AddressType;
   billingAddress: AddressType;
   deliveryMethod: DeliveryMethodType;
   paymentMethod: PaymentType;
+  createdAt: string | Date;
 };
 
 export type DiscountType = {
@@ -90,21 +84,17 @@ export type DiscountType = {
 export type OrderType = {
   id: string;
   email: string;
-  orderDate: string;
-  status: OrderStatusType;
   currency: string;
   total: number;
   subTotal: number;
-  discount: {
-    value: number;
-    code: string;
-    currency: string;
-  };
+  discount?: DiscountType;
   lineItems: CartLineItemType[];
   shippingAddress: AddressType;
   billingAddress: AddressType;
   deliveryMethod: DeliveryMethodType;
   paymentMethod: PaymentType;
+  orderDate: string | Date;
+  status: OrderStatusType;
 };
 
 export enum OrderStatusType {
