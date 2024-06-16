@@ -59,6 +59,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
 
     const sortedParams = sortQueryParams(params);
     replace(`${pathname}?${sortedParams.toString()}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterValues.length]);
 
   return (

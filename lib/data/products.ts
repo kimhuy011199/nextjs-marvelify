@@ -137,9 +137,19 @@ const getRelatedProducts = async (handle: string) => {
     .slice(0, 4);
 };
 
+const getAllProducts = async () => {
+  const products = await db.product.findMany({
+    include: {
+      variants: true,
+    },
+  });
+  return products;
+};
+
 export {
   getProducts,
   getProductByHandle,
   getRelatedProducts,
   getFeaturedProducts,
+  getAllProducts,
 };
