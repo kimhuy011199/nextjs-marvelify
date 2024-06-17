@@ -3,15 +3,18 @@ import { twMerge } from 'tailwind-merge';
 
 interface MoneyProps {
   amount: number;
-  currency: string;
+  currency?: string;
   originalAmount?: number;
   className?: string;
 }
 
+const DEFAULT_CURRENCY = 'USD';
+const DEFAULT_AMOUNT = 0;
+
 const Money: React.FC<MoneyProps> = ({
-  amount,
-  currency,
-  originalAmount = 0,
+  amount = DEFAULT_AMOUNT,
+  currency = DEFAULT_CURRENCY,
+  originalAmount = DEFAULT_AMOUNT,
   className,
 }) => {
   const currencySymbol: { [key: string]: string } = {
