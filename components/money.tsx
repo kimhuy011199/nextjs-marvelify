@@ -2,7 +2,7 @@ import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface MoneyProps {
-  amount: number;
+  amount?: number;
   currency?: string;
   originalAmount?: number;
   className?: string;

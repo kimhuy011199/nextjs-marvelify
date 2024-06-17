@@ -54,11 +54,11 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           </span>
         </div>
       ) : null}
-      <OrderLineItem orderLineItem={order.lineItems[0]} />
+      <OrderLineItem orderLineItem={order.cart.items[0]} />
       <div className="flex justify-between items-center px-5 pb-2">
         <div className="text-accent-foreground text-sm">
-          {order.lineItems.length > 1 ? (
-            <span>{order.lineItems.length - 1} more item(s)</span>
+          {order.cart.items.length > 1 ? (
+            <span>{order.cart.items.length - 1} more item(s)</span>
           ) : null}
         </div>
         <Button asChild variant="link" className="flex gap-1 pr-1">

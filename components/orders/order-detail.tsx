@@ -6,13 +6,15 @@ import OrderDelivery from '@/components/orders/order-info-delivery';
 import OrderStatusBadge from '@/components/orders/order-status-badge';
 import { formatOrderDate } from '@/lib/utils';
 import Divider from '@/components/divider';
+import { OrderStatusType, OrderType } from '@/lib/types';
 
 interface OrderDetailProps {
   id: string;
 }
 
 const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
-  const order = await getOrderById(id);
+  const order = (await getOrderById(id)) as OrderType;
+  console.log('order', order);
 
   if (!order) {
     return <></>;
@@ -37,7 +39,7 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
       <div>
         <div className="flex flex-col lg:flex-row gap-12 mt-4">
           <ul className="w-full">
-            {order.lineItems.map((lineItem) => (
+            {order.cart.items.map((lineItem) => (
               <OrderLineItem
                 key={lineItem.productVariantId}
                 orderLineItem={lineItem}

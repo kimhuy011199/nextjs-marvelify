@@ -88,7 +88,7 @@ export type OrderType = {
   total: number;
   subTotal: number;
   discount?: DiscountType;
-  lineItems: CartLineItemType[];
+  cart: CartType;
   shippingAddress: AddressType;
   billingAddress: AddressType;
   deliveryMethod: DeliveryMethodType;
