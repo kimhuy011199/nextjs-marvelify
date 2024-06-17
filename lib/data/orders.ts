@@ -1,4 +1,5 @@
 import { OrderType } from '@/lib/types';
+import { db } from '@/lib/db';
 import delay from 'delay';
 
 const orders: OrderType[] = [
@@ -66,8 +67,6 @@ const orders: OrderType[] = [
       name: 'Cash on Delivery',
       id: 'cod',
       description: 'Pay with cash when your order is delivered to you.',
-      price: 20,
-      currency: 'USD',
     },
   },
   {
@@ -150,8 +149,6 @@ const orders: OrderType[] = [
       name: 'Cash on Delivery',
       id: 'cod',
       description: 'Pay with cash when your order is delivered to you.',
-      price: 20,
-      currency: 'USD',
     },
   },
 ];
@@ -161,11 +158,30 @@ const getOrders = async (): Promise<OrderType[]> => {
   return orders;
 };
 
-const getOrderById = async (
-  orderId: string
-): Promise<OrderType | undefined> => {
-  await delay(2000);
-  return orders.find((order) => order.id === orderId);
+const getOrderById = async (orderId: string) => {
+  const order = await db.order.findUnique({
+    where: {
+      id: orderId,
+    },
+    include: {
+      cart: {
+        include: {
+          items: {
+            include: {
+              productVariant: true,
+            },
+          },
+        },
+      },
+      shippingAddress: true,
+      billingAddress: true,
+      deliveryMethod: true,
+      paymentMethod: true,
+      discount: true,
+    },
+  });
+
+  return order;
 };
 
 export { getOrders, getOrderById };

@@ -59,7 +59,7 @@ export const getRelatedCheckoutSteps = (currentStep: string) => {
   }
 };
 
-export const formatOrderDate = (date: string) => {
+export const formatOrderDate = (date: string | Date) => {
   return new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
