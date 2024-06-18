@@ -18,6 +18,7 @@ interface CheckoutStore {
   clearDiscount: () => void;
   calculateSubTotal: () => number;
   calculateTotal: () => number;
+  clear: () => void;
 }
 
 const DEFAULT_CHECKOUT: CheckoutType = {
@@ -46,13 +47,14 @@ const DEFAULT_CHECKOUT: CheckoutType = {
     id: '',
     name: '',
     description: '',
-    price: 0,
-    currency: '',
   },
 };
 
 const useCheckout = create<CheckoutStore>((set, get) => ({
   checkout: DEFAULT_CHECKOUT,
+  clear: () => {
+    set({ checkout: DEFAULT_CHECKOUT });
+  },
   setEmail: (email) => {
     set((state) => ({ checkout: { ...state.checkout, email } }));
   },
@@ -111,7 +113,7 @@ const useCheckout = create<CheckoutStore>((set, get) => ({
     const total =
       checkout.subTotal +
       checkout.deliveryMethod?.price -
-      checkout.discount?.value;
+      (checkout?.discount?.value || 0);
     set((state) => ({
       checkout: { ...state.checkout, total },
     }));

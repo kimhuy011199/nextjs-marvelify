@@ -25,8 +25,8 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ order }) => {
       <SummaryLine>
         <SummaryText>Discount</SummaryText>
         <Money
-          amount={order.discount.value}
-          currency={order.discount.currency}
+          amount={order?.discount?.value}
+          currency={order?.discount?.currency}
         />
       </SummaryLine>
       <Divider className="my-1" />

@@ -10,6 +10,7 @@ interface CartStore {
   removeItem: (productVariantId: string) => void;
   changeQuantityItem: (productVariantId: string, quantity: number) => void;
   calculateSubTotal: () => number;
+  clear: () => void;
 }
 
 const useCart = create(
@@ -59,6 +60,9 @@ const useCart = create(
             acc + item.productVariant.discountedPrice * item.quantity,
           0
         );
+      },
+      clear: () => {
+        set({ items: [] });
       },
     }),
     {
