@@ -70,6 +70,14 @@ export const DELIVERY_METHOD_OPTIONS = [
   },
 ];
 
+export const PAYMENT_METHOD_OPTIONS = [
+  {
+    name: 'Cash on Delivery',
+    id: 'cod',
+    description: 'Pay with cash when your order is delivered to you.',
+  },
+];
+
 export const DEFAULT_SHIPPING_ADDRESS = {
   id: '',
   firstName: '',

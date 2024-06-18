@@ -20,21 +20,19 @@ import {
 } from '@/components/ui/form';
 import CheckoutSubmitAction from '@/components/checkout/checkout-submit-action';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { CHECKOUT_STEPS, ROUTES } from '@/lib/constants';
+import {
+  CHECKOUT_STEPS,
+  PAYMENT_METHOD_OPTIONS,
+  ROUTES,
+} from '@/lib/constants';
 import { useCheckout } from '@/lib/hooks/use-checkout';
 import { useRouter } from 'next/navigation';
+import { placeOrder } from '@/lib/actions';
+import { useCart } from '@/lib/hooks/use-cart';
 
 const FormSchema = z.object({
   method: z.string(),
 });
-
-const PAYMENT_METHOD_OPTIONS = [
-  {
-    name: 'Cash on Delivery',
-    id: 'cod',
-    description: 'Pay with cash when your order is delivered to you.',
-  },
-];
 
 const CheckoutFormPayment: React.FC = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -44,15 +42,25 @@ const CheckoutFormPayment: React.FC = () => {
     },
   });
   const checkoutState = useCheckout();
+  const cart = useCart();
   const router = useRouter();
 
-  const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    console.log('checkoutState', JSON.stringify(checkoutState.checkout));
+  const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
     // Create order
-    // Remove cart
-    // Redirect to thank you page
-    const thankYouPageUrl = `${ROUTES.THANK_YOU}/1001`;
-    router.push(thankYouPageUrl);
+    const { id, createdAt, paymentMethod, ...checkoutData } =
+      checkoutState.checkout;
+    const data = { ...checkoutData, paymentMethodId: formData.method };
+    const order = await placeOrder(data);
+
+    if (order) {
+      // Remove cart
+      checkoutState.clear();
+      cart.clear();
+
+      // Redirect to thank you page
+      const thankYouPageUrl = `${ROUTES.THANK_YOU}/${order.id}`;
+      router.replace(thankYouPageUrl);
+    }
   };
 
   return (
