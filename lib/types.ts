@@ -94,6 +94,7 @@ export type OrderType = {
   deliveryMethod: DeliveryMethodType;
   paymentMethod: PaymentType;
   orderDate: string | Date;
+  orderNumber: number;
   status: OrderStatusType;
 };
 

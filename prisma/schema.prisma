@@ -109,5 +109,6 @@ model Order {
   paymentMethod     PaymentMethod  @relation(fields: [paymentMethodId], references: [id])
   paymentMethodId   String
   orderDate         DateTime       @default(now())
+  orderNumber       Int            @unique @default(autoincrement())
   status            String
 }

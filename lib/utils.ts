@@ -80,3 +80,7 @@ export const sortQueryParams = (params: URLSearchParams) => {
   const sortedParams = new URLSearchParams(sortedParamsArray);
   return sortedParams;
 };
+
+export const formatOrderNumber = (orderNumber: number) => {
+  return '#' + orderNumber.toString().padStart(4, '0');
+};

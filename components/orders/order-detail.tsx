@@ -3,8 +3,9 @@ import { getOrderById } from '@/lib/data/orders';
 import OrderLineItem from '@/components/orders/order-line-item';
 import OrderSummary from '@/components/orders/order-summary';
 import OrderDelivery from '@/components/orders/order-info-delivery';
+import OrderPayment from '@/components/orders/order-info-payment';
 import OrderStatusBadge from '@/components/orders/order-status-badge';
-import { formatOrderDate } from '@/lib/utils';
+import { formatOrderDate, formatOrderNumber } from '@/lib/utils';
 import Divider from '@/components/divider';
 import { OrderStatusType, OrderType } from '@/lib/types';
 
@@ -22,7 +23,9 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
 
   return (
     <>
-      <h2 className="font-semibold text-2xl pb-1">Order #{order.id}</h2>
+      <h2 className="font-semibold text-2xl pb-1">
+        Order {formatOrderNumber(order.orderNumber)}
+      </h2>
       <div className="grid grid-cols-2 mt-4 items-center">
         <div className="flex gap-3 items-center">
           <span className="text-accent-foreground">Order status:</span>
@@ -53,6 +56,9 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
         </div>
         <div className="mt-8">
           <OrderDelivery order={order} />
+        </div>
+        <div className="mt-4">
+          <OrderPayment order={order} />
         </div>
       </div>
     </>
