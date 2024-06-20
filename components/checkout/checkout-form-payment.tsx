@@ -106,7 +106,11 @@ const CheckoutFormPayment: React.FC = () => {
                 </FormItem>
               )}
             />
-            <CheckoutSubmitAction currentStep={CHECKOUT_STEPS.PAYMENT} />
+            <CheckoutSubmitAction
+              currentStep={CHECKOUT_STEPS.PAYMENT}
+              isLoading={form.formState.isSubmitting}
+              isDisabled={form.formState.isSubmitting}
+            />
           </form>
         </Form>
       </CheckoutStepContent>

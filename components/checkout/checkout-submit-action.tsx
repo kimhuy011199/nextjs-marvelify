@@ -8,10 +8,14 @@ import { Button } from '@/components/ui/button';
 
 interface CheckoutSubmitActionProps {
   currentStep: string;
+  isLoading?: boolean;
+  isDisabled?: boolean;
 }
 
 const CheckoutSubmitAction: React.FC<CheckoutSubmitActionProps> = ({
   currentStep,
+  isLoading,
+  isDisabled,
 }) => {
   const router = useRouter();
   const relatedCheckoutSteps = getRelatedCheckoutSteps(currentStep);
@@ -34,10 +38,18 @@ const CheckoutSubmitAction: React.FC<CheckoutSubmitActionProps> = ({
         onClick={handleNavigatePrevStep}
         className="px-0 text-foreground underline"
         type="button"
+        disabled={isDisabled}
       >
         {previousStepLabel}
       </Button>
-      <Button type="submit">{nextStepLabel}</Button>
+      <Button
+        type="submit"
+        isLoading={isLoading}
+        disabled={isDisabled}
+        className="min-w-40"
+      >
+        {nextStepLabel}
+      </Button>
     </div>
   );
 };
