@@ -1,9 +1,29 @@
 'use server';
 
 import { db } from '@/lib/db';
-import { OrderStatusType } from '@/lib/types';
+import { AddressType, OrderStatusType } from '@/lib/types';
 
-export const placeOrder = async (orderData: any) => {
+type OrderInputDataType = {
+  email: string;
+  currency: string;
+  total: number;
+  subTotal: number;
+  paymentMethodId: string;
+  discount?: {
+    code: string;
+  };
+  shippingAddress: AddressType;
+  billingAddress?: AddressType;
+  lineItems: Array<{
+    productVariantId: string;
+    quantity: number;
+  }>;
+  deliveryMethod: {
+    id: string;
+  };
+};
+
+export const placeOrder = async (orderData: OrderInputDataType) => {
   // PROD: Re-fetch products to get price and stock
   // PROD: Re-calculate price and discount
   const { email, currency, total, subTotal, paymentMethodId } = orderData;
