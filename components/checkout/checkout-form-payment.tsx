@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,12 +29,16 @@ import { useCheckout } from '@/lib/hooks/use-checkout';
 import { useRouter } from 'next/navigation';
 import { placeOrder } from '@/lib/actions';
 import { useCart } from '@/lib/hooks/use-cart';
+import { useMutation } from '@tanstack/react-query';
+import { useToast } from '@/components/ui/use-toast';
 
 const FormSchema = z.object({
   method: z.string(),
 });
 
 const CheckoutFormPayment: React.FC = () => {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -45,22 +49,34 @@ const CheckoutFormPayment: React.FC = () => {
   const cart = useCart();
   const router = useRouter();
 
-  const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
-    // Create order
-    const { id, createdAt, paymentMethod, ...checkoutData } =
-      checkoutState.checkout;
-    const data = { ...checkoutData, paymentMethodId: formData.method };
-    const order = await placeOrder(data);
-
-    if (order) {
-      // Remove cart
+  const { mutate: checkout } = useMutation({
+    mutationKey: ['checkout'],
+    mutationFn: placeOrder,
+    onSuccess: (order) => {
+      // Clear client data
       checkoutState.clear();
       cart.clear();
 
       // Redirect to thank you page
       const thankYouPageUrl = `${ROUTES.THANK_YOU}/${order.id}`;
       router.replace(thankYouPageUrl);
-    }
+    },
+    onError: () => {
+      setIsLoading(false);
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      });
+    },
+  });
+
+  const onSubmit = async (formData: z.infer<typeof FormSchema>) => {
+    setIsLoading(true);
+    const { id, createdAt, paymentMethod, ...checkoutData } =
+      checkoutState.checkout;
+    const data = { ...checkoutData, paymentMethodId: formData.method };
+    checkout(data);
   };
 
   return (
@@ -108,8 +124,8 @@ const CheckoutFormPayment: React.FC = () => {
             />
             <CheckoutSubmitAction
               currentStep={CHECKOUT_STEPS.PAYMENT}
-              isLoading={form.formState.isSubmitting}
-              isDisabled={form.formState.isSubmitting}
+              isLoading={isLoading}
+              isDisabled={isLoading}
             />
           </form>
         </Form>
