@@ -8,6 +8,8 @@ export const ROUTES = {
   CHECKOUT: '/checkout',
   SEARCH: '/search',
   THANK_YOU: '/orders/confirmed',
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/register',
 };
 
 export const CHECKOUT_STEPS = {
