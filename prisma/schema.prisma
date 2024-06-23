@@ -111,4 +111,13 @@ model Order {
   orderDate         DateTime       @default(now())
   orderNumber       Int            @unique @default(autoincrement())
   status            String
+  user              Profile?       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId            String?
+}
+
+model Profile {
+  id     String  @id
+  email  String  @unique
+  name   String
+  orders Order[]
 }
