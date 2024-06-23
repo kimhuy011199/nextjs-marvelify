@@ -27,7 +27,7 @@ import {
 } from '@/lib/constants';
 import { useCheckout } from '@/lib/hooks/use-checkout';
 import { useRouter } from 'next/navigation';
-import { placeOrder } from '@/lib/actions';
+import { placeOrder } from '@/lib/actions/orders';
 import { useCart } from '@/lib/hooks/use-cart';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/use-toast';
