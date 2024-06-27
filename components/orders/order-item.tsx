@@ -3,13 +3,18 @@ import Link from 'next/link';
 import { ArrowRight, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import OrderLineItem from '@/components/orders/order-line-item';
-import { OrderType } from '@/lib/types';
+import { OrderStatusType, OrderType } from '@/lib/types';
 import Money from '@/components/money';
 import OrderStatusBadge from '@/components/orders/order-status-badge';
-import { formatOrderDate } from '@/lib/utils';
+import { formatOrderDate, formatOrderNumber } from '@/lib/utils';
+
+export type OrderItemType = Omit<
+  OrderType,
+  'billingAddress' | 'shippingAddress' | 'paymentMethod' | 'discount'
+>;
 
 interface OrderItemProps {
-  order: OrderType;
+  order: OrderItemType;
 }
 
 const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
@@ -18,13 +23,15 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
       <div className="grid grid-cols-4 px-4 py-3 border-b bg-gray-50">
         <div className="flex flex-col">
           <span className="text-sm font-medium text-accent-foreground">
-            Order ID
+            Order Number
           </span>
-          <span className="font-medium">#{order.id}</span>
+          <span className="font-medium">
+            {formatOrderNumber(order.orderNumber)}
+          </span>
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-medium text-accent-foreground">
-            Order Date
+            Ordered Date
           </span>
           <span className="font-medium">
             {formatOrderDate(order.orderDate)}
@@ -40,7 +47,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           <span className="text-sm font-medium text-accent-foreground">
             Order Status
           </span>
-          <OrderStatusBadge status={order.status} />
+          <OrderStatusBadge status={order.status as OrderStatusType} />
         </div>
       </div>
       {order?.deliveryMethod?.estimatedDelivery ? (

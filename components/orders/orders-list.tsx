@@ -1,9 +1,8 @@
 import React from 'react';
-import OrderItem from '@/components/orders/order-item';
-import { OrderType } from '@/lib/types';
+import OrderItem, { OrderItemType } from '@/components/orders/order-item';
 
 interface OrdersListProps {
-  orders: OrderType[];
+  orders: OrderItemType[];
 }
 
 const OrdersList: React.FC<OrdersListProps> = ({ orders }) => {

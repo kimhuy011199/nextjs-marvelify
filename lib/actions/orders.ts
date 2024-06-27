@@ -3,10 +3,14 @@
 import { db } from '@/lib/db';
 import { OrderStatusType } from '@/lib/types';
 import { OrderInputDataType } from '@/lib/schema/orders';
+import createServerClient from '@/lib/supabase/server';
 
 export const placeOrder = async (orderData: OrderInputDataType) => {
   // PROD: Re-fetch products to get price and stock
   // PROD: Re-calculate price and discount
+  const supabase = createServerClient();
+  const currentUser = await supabase.auth.getUser();
+
   const { email, currency, total, subTotal, paymentMethodId } = orderData;
   const discountCode = orderData?.discount?.code;
 
@@ -69,6 +73,15 @@ export const placeOrder = async (orderData: OrderInputDataType) => {
           id: cart.id,
         },
       },
+      ...(currentUser?.data?.user?.id
+        ? {
+            user: {
+              connect: {
+                id: currentUser?.data?.user?.id,
+              },
+            },
+          }
+        : {}),
       ...(discountCode
         ? {
             discount: {

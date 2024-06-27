@@ -29,7 +29,7 @@ const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
       <div className="grid grid-cols-2 mt-4 items-center">
         <div className="flex gap-3 items-center">
           <span className="text-accent-foreground">Order status:</span>
-          <OrderStatusBadge status={order.status} />
+          <OrderStatusBadge status={order.status as OrderStatusType} />
         </div>
         <div className="flex gap-3">
           <span className="text-accent-foreground">Order date:</span>
