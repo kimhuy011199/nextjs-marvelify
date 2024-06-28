@@ -27,7 +27,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   revalidatePath('/', 'layout');
-  redirect('/');
+  redirect(ROUTES.CART);
 };
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
@@ -59,7 +59,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     });
 
     revalidatePath('/', 'layout');
-    redirect('/');
+    redirect(ROUTES.CART);
   }
 
   return 'Registered successfully';

@@ -95,7 +95,7 @@ export type OrderType = {
   paymentMethod: PaymentType;
   orderDate: string | Date;
   orderNumber: number;
-  status: OrderStatusType;
+  status: string;
 };
 
 export enum OrderStatusType {

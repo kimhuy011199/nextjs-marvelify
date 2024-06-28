@@ -10,6 +10,7 @@ export const ROUTES = {
   THANK_YOU: '/orders/confirmed',
   LOGIN: '/auth/login',
   REGISTER: '/auth/register',
+  AUTH: '/auth',
 };
 
 export const CHECKOUT_STEPS = {
