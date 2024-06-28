@@ -56,7 +56,6 @@ const CheckoutFormPayment: React.FC = () => {
       // Clear client data
       checkoutState.clear();
       cart.clear();
-
       // Redirect to thank you page
       const thankYouPageUrl = `${ROUTES.THANK_YOU}/${order.id}`;
       router.replace(thankYouPageUrl);
