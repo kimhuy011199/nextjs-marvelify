@@ -45,7 +45,7 @@ export const FormSchema = z.object({
     .refine((value) => value.trim() !== '', {
       message: 'Address is required',
     }),
-  address2: z.string().optional(),
+  address2: z.string().optional().nullable(),
   city: z
     .string()
     .min(1, {
@@ -55,7 +55,7 @@ export const FormSchema = z.object({
       message: 'City is required',
     }),
   postalCode: z.string().regex(/^[0-9]{5,6}$/, 'Invalid postal code'),
-  province: z.string().optional(),
+  province: z.string().optional().nullable(),
   country: z.string(),
 });
 

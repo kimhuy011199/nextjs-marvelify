@@ -59,7 +59,7 @@ const AddressFormCreate: React.FC<AddressFormCreateProps> = ({ callback }) => {
         <AddressForm type={FormType.Create} form={form} />
         <div className="flex justify-end mt-5">
           <Button
-            className="min-w-40"
+            className="min-w-24"
             isLoading={isLoading}
             disabled={isLoading}
             type="submit"

@@ -17,8 +17,23 @@ const createAddress = async (addressData: any) => {
   });
 
   revalidatePath(ROUTES.ACCOUNT_ADDRESSES, 'layout');
-
   return address;
 };
 
-export { createAddress };
+const updateAddress = async (addressData: any) => {
+  const supabase = createServerClient();
+  const currentUser = await supabase.auth.getUser();
+
+  const address = await db.address.update({
+    where: {
+      id: addressData.id,
+      userId: currentUser?.data?.user?.id,
+    },
+    data: addressData,
+  });
+
+  revalidatePath(ROUTES.ACCOUNT_ADDRESSES, 'layout');
+  return address;
+};
+
+export { createAddress, updateAddress };
