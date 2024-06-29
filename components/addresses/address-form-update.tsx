@@ -14,7 +14,7 @@ import { AddressType } from '@/lib/types';
 import { DEFAULT_EMAIL } from '@/lib/constants';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/use-toast';
-import { updateAddress } from '@/lib/actions/addresses';
+import { deleteAddress, updateAddress } from '@/lib/actions/addresses';
 
 interface AddressFormUpdateProps {
   defaultValues: AddressType;
@@ -52,14 +52,14 @@ const AddressFormUpdate: React.FC<AddressFormUpdateProps> = ({
     },
   });
 
-  // const handleDelete = async () => {
-  //   setIsLoadingDelete(true);
-  //   await deleteAddress();
-  //   toast({
-  //     title: 'Delete address successfully',
-  //   });
-  //   callback?.();
-  // }
+  const handleDelete = async () => {
+    setIsLoadingDelete(true);
+    await deleteAddress(defaultValues.id);
+    toast({
+      title: 'Delete address successfully',
+    });
+    callback?.();
+  };
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     setIsLoadingUpdate(true);
@@ -78,6 +78,7 @@ const AddressFormUpdate: React.FC<AddressFormUpdateProps> = ({
             className="text-primary border-primary bg-white hover:bg-red-100 hover:text-primary min-w-24"
             isLoading={isLoadingDelete}
             disabled={isLoadingDelete || isLoadingUpdate}
+            onClick={handleDelete}
           >
             Delete
           </Button>

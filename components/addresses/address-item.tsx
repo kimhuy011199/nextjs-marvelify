@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   Sheet,
   SheetContent,
@@ -8,7 +10,6 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { FormType } from '@/components/addresses/address-form';
 import AddressFormUpdate from '@/components/addresses/address-form-update';
 import { AddressType } from '@/lib/types';
 import { SquarePen } from 'lucide-react';
@@ -18,10 +19,11 @@ interface AddressItemProps {
 }
 
 const AddressItem: React.FC<AddressItemProps> = ({ address }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const addressName = `${address.firstName} ${address.lastName}`;
 
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button
           variant="outline"
@@ -49,7 +51,10 @@ const AddressItem: React.FC<AddressItemProps> = ({ address }) => {
           </SheetDescription>
         </SheetHeader>
         <div className="mt-8">
-          <AddressFormUpdate defaultValues={address} />
+          <AddressFormUpdate
+            defaultValues={address}
+            callback={() => setIsOpen(false)}
+          />
         </div>
       </SheetContent>
     </Sheet>

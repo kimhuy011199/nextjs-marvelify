@@ -36,4 +36,18 @@ const updateAddress = async (addressData: any) => {
   return address;
 };
 
-export { createAddress, updateAddress };
+const deleteAddress = async (addressId: string) => {
+  const supabase = createServerClient();
+  const currentUser = await supabase.auth.getUser();
+
+  await db.address.delete({
+    where: {
+      id: addressId,
+      userId: currentUser?.data?.user?.id,
+    },
+  });
+
+  revalidatePath(ROUTES.ACCOUNT_ADDRESSES, 'layout');
+};
+
+export { createAddress, updateAddress, deleteAddress };
