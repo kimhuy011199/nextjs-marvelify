@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import createServerClient from '@/lib/supabase/server';
 
 const getOrdersByUserId = async (userId: string) => {
   const orders = await db.order.findMany({
@@ -27,6 +28,9 @@ const getOrdersByUserId = async (userId: string) => {
 };
 
 const getOrderById = async (orderId: string) => {
+  const supabase = createServerClient();
+  const currentUser = await supabase.auth.getUser();
+
   const order = await db.order.findUnique({
     where: {
       id: orderId,
@@ -49,7 +53,7 @@ const getOrderById = async (orderId: string) => {
     },
   });
 
-  return order;
+  return order?.userId === currentUser?.data?.user?.id ? order : null;
 };
 
 export { getOrdersByUserId, getOrderById };

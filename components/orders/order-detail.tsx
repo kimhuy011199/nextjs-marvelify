@@ -8,6 +8,7 @@ import OrderStatusBadge from '@/components/orders/order-status-badge';
 import { formatOrderDate, formatOrderNumber } from '@/lib/utils';
 import Divider from '@/components/divider';
 import { OrderStatusType, OrderType } from '@/lib/types';
+import { notFound } from 'next/navigation';
 
 interface OrderDetailProps {
   id: string;
@@ -15,10 +16,9 @@ interface OrderDetailProps {
 
 const OrderDetail: React.FC<OrderDetailProps> = async ({ id }) => {
   const order = (await getOrderById(id)) as OrderType;
-  console.log('order', order);
 
   if (!order) {
-    return <></>;
+    return notFound();
   }
 
   return (
