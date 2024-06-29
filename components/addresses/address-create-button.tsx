@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import {
   Sheet,
   SheetContent,
@@ -11,8 +13,10 @@ import { Button } from '@/components/ui/button';
 import AddressFormCreate from '@/components/addresses/address-form-create';
 
 const AddressCreateButton: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button>Create new address</Button>
       </SheetTrigger>
@@ -24,7 +28,7 @@ const AddressCreateButton: React.FC = () => {
           </SheetDescription>
         </SheetHeader>
         <div className="mt-8">
-          <AddressFormCreate />
+          <AddressFormCreate callback={() => setIsOpen(false)} />
         </div>
       </SheetContent>
     </Sheet>
