@@ -93,6 +93,33 @@ export const DEFAULT_SHIPPING_ADDRESS = {
   country: COUNTRY_OPTIONS[0].value,
 };
 
+export const EXAMPLE_ADDRESSES = [
+  {
+    id: 'a61a8669-8876-4a17-a19d-5c5bfba288a3',
+    firstName: 'John',
+    lastName: 'Doe',
+    address1: '123 Main St',
+    address2: 'Apt 4B',
+    city: 'New York',
+    province: 'NY',
+    postalCode: '10001',
+    country: 'US',
+  },
+  {
+    id: '93370cfe-6c25-4c53-86ab-6fdf7a668806',
+    firstName: 'Jane',
+    lastName: 'Smith',
+    address1: '456 Elm St',
+    address2: '',
+    city: 'Los Angeles',
+    province: '',
+    postalCode: '90001',
+    country: 'US',
+  },
+];
+
+export const DEFAULT_EMAIL = 'kimhuy011199@gmail.com';
+
 export const PERSONAL_LINKS = {
   GITHUB: 'https://github.com/kimhuy011199/nextjs-marvelify',
 };

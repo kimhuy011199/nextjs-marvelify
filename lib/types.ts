@@ -39,9 +39,9 @@ export type AddressType = {
   firstName: string;
   lastName: string;
   address1: string;
-  address2?: string;
+  address2?: string | null;
   city: string;
-  province?: string;
+  province?: string | null;
   postalCode: string;
   country: string;
 };

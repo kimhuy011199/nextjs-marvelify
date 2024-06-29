@@ -1,39 +1,27 @@
-import { AddressType } from '@/lib/types';
-import delay from 'delay';
-
-const exampleAddresses: AddressType[] = [
-  {
-    id: '1',
-    firstName: 'John',
-    lastName: 'Doe',
-    address1: '123 Main St',
-    address2: 'Apt 4B',
-    city: 'New York',
-    province: 'NY',
-    postalCode: '10001',
-    country: 'US',
-  },
-  {
-    id: '2',
-    firstName: 'Jane',
-    lastName: 'Smith',
-    address1: '456 Elm St',
-    address2: '',
-    city: 'Los Angeles',
-    province: '',
-    postalCode: '90001',
-    country: 'US',
-  },
-];
+import createServerClient from '@/lib/supabase/server';
+import { db } from '@/lib/db';
+import { EXAMPLE_ADDRESSES } from '@/lib/constants';
 
 const getExampleAddress = () => {
-  const randomIndex = Math.floor(Math.random() * exampleAddresses.length);
-  return exampleAddresses[randomIndex];
+  const randomIndex = Math.floor(Math.random() * EXAMPLE_ADDRESSES.length);
+  return EXAMPLE_ADDRESSES[randomIndex];
 };
 
 const getAddresses = async () => {
-  await delay(2000);
-  return exampleAddresses;
+  const supabase = createServerClient();
+  const currentUser = await supabase.auth.getUser();
+
+  if (!currentUser?.data?.user?.id) {
+    return [];
+  }
+
+  const addresses = await db.address.findMany({
+    where: {
+      userId: currentUser.data.user.id,
+    },
+  });
+
+  return addresses;
 };
 
 export { getExampleAddress, getAddresses };
