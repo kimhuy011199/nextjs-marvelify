@@ -19,9 +19,11 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/constants';
 import { login } from '@/lib/actions/authentication';
 import { useMutation } from '@tanstack/react-query';
+import { useCheckout } from '@/lib/hooks/use-checkout';
 
 const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const checkoutState = useCheckout();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -33,6 +35,10 @@ const LoginForm: React.FC = () => {
   const { mutate: loginUser } = useMutation({
     mutationKey: ['login'],
     mutationFn: login,
+    onSuccess: () => {
+      // Clear checkout state of old user
+      checkoutState.clear();
+    },
     onError: (error) => {
       setIsLoading(false);
       // Handle error on email field
