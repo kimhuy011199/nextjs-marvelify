@@ -6,8 +6,17 @@ import NonSSRWrapper from '@/components/non-ssr-wrapper';
 import CheckoutForm from '@/components/checkout/checkout-form';
 import CheckoutSummary from '@/components/checkout/checkout-summary';
 import { useCheckout } from '@/lib/hooks/use-checkout';
+import { AddressType } from '@/lib/types';
 
-const CheckoutContainer: React.FC = () => {
+interface CheckoutContainerProps {
+  email?: string;
+  addresses?: AddressType[];
+}
+
+const CheckoutContainer: React.FC<CheckoutContainerProps> = ({
+  email,
+  addresses,
+}) => {
   const cart = useCart();
   const checkoutState = useCheckout();
 
@@ -27,7 +36,7 @@ const CheckoutContainer: React.FC = () => {
   return (
     <NonSSRWrapper>
       <div className="px-12 lg:pl-0 py-8 lg:py-12">
-        <CheckoutForm />
+        <CheckoutForm email={email} addresses={addresses} />
       </div>
       <div className="px-12 lg:pr-0 py-8 lg:py-12 lg:border-l lg:border-l-accent">
         <CheckoutSummary />

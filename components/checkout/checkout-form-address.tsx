@@ -30,24 +30,32 @@ import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useCheckout } from '@/lib/hooks/use-checkout';
 import { Checkbox } from '@/components/ui/checkbox';
-import { getExampleAddress } from '@/lib/data/addresses';
+import { EXAMPLE_ADDRESSES } from '@/lib/constants';
 import AddressForm, {
   FormSchema,
   FormType,
 } from '@/components/addresses/address-form';
 import { AddressType } from '@/lib/types';
 
-const CheckoutFormAddress: React.FC = () => {
+interface CheckoutFormAddressProps {
+  email?: string;
+  addresses?: AddressType[];
+}
+
+const CheckoutFormAddress: React.FC<CheckoutFormAddressProps> = ({
+  email,
+  addresses,
+}) => {
   const [isUseExampleAddress, setIsUseExampleAddress] = useState(false);
   const checkoutState = useCheckout();
   const defaultValues = checkoutState.checkout.shippingAddress.address1
     ? {
         ...checkoutState.checkout.shippingAddress,
-        email: checkoutState.checkout.email,
+        email: checkoutState.checkout.email || email,
       }
     : {
         ...DEFAULT_SHIPPING_ADDRESS,
-        email: '',
+        email,
       };
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -60,7 +68,7 @@ const CheckoutFormAddress: React.FC = () => {
     const email = form.getValues('email');
     form.reset(
       checked
-        ? { ...getExampleAddress(), email }
+        ? { ...EXAMPLE_ADDRESSES[0], email }
         : { ...DEFAULT_SHIPPING_ADDRESS, email }
     );
   };
@@ -106,26 +114,31 @@ const CheckoutFormAddress: React.FC = () => {
           <CheckoutStepDescription>
             The address where your order will be delivered.
           </CheckoutStepDescription>
-          {/* <div className="flex items-center space-x-2 mt-3">
-            <Checkbox
-              id="address"
-              checked={isUseExampleAddress}
-              onCheckedChange={(checked) => {
-                setIsUseExampleAddress(!!checked);
-                handleUseExampleAddress(checked);
-              }}
-            />
-            <label
-              htmlFor="address"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Use the sample shipping address
-            </label>
-          </div> */}
+          {!email ? (
+            <div className="flex items-center space-x-2 mt-3">
+              <Checkbox
+                id="address"
+                checked={isUseExampleAddress}
+                onCheckedChange={(checked) => {
+                  setIsUseExampleAddress(!!checked);
+                  handleUseExampleAddress(checked);
+                }}
+              />
+              <label
+                htmlFor="address"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Use the sample shipping address
+              </label>
+            </div>
+          ) : null}
           <CheckoutStepContent>
-            <CheckoutFormAddressSelection
-              handleChangeAddress={handleChangeAddress}
-            />
+            {addresses?.length ? (
+              <CheckoutFormAddressSelection
+                addresses={addresses}
+                handleChangeAddress={handleChangeAddress}
+              />
+            ) : null}
             <AddressForm type={FormType.Checkout} form={form} />
             <CheckoutSubmitAction currentStep={CHECKOUT_STEPS.ADDRESS} />
           </CheckoutStepContent>

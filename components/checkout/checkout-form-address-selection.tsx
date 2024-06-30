@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AddressType } from '@/lib/types';
 import {
   Select,
@@ -8,38 +8,22 @@ import {
   SelectGroup,
   SelectItem,
 } from '@/components/ui/select';
-import { getAddresses } from '@/lib/data/addresses';
 
 interface Props {
+  addresses: AddressType[];
   handleChangeAddress: (addressValue: AddressType) => void;
 }
 
 const CheckoutFormAddressSelection: React.FC<Props> = ({
   handleChangeAddress,
+  addresses,
 }) => {
-  const [addresses, setAddresses] = useState<AddressType[]>([]);
-
   const handleValueChange = (value: string) => {
     const address = addresses.find((address) => address.id === value);
     if (address) {
       handleChangeAddress(address);
     }
   };
-
-  const fetchAddresses = async () => {
-    const addresses = await getAddresses();
-    setAddresses(addresses);
-  };
-
-  useEffect(() => {
-    fetchAddresses();
-  }, []);
-
-  if (!addresses.length) {
-    return (
-      <div className="mb-5 h-10 w-full bg-gray-200 animate-pulse rounded-md"></div>
-    );
-  }
 
   return (
     <div className="mb-5">
