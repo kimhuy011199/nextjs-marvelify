@@ -53,6 +53,12 @@ const getOrderById = async (orderId: string) => {
     },
   });
 
+  // Public orders can be viewed by anyone
+  if (!order?.userId) {
+    return order;
+  }
+
+  // Private orders can only be viewed by the user who placed the order
   return order?.userId === currentUser?.data?.user?.id ? order : null;
 };
 
