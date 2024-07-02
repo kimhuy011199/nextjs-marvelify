@@ -81,6 +81,8 @@ model Cart {
   items   CartLineItem[]
   order   Order?
   orderId String?
+  user    Profile?       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId  String?        @unique
 }
 
 model CartLineItem {
@@ -123,4 +125,6 @@ model Profile {
   name    String
   orders  Order[]
   address Address[]
+  cart    Cart?
+  cartId  String?
 }
