@@ -20,10 +20,12 @@ import { ROUTES } from '@/lib/constants';
 import { login } from '@/lib/actions/authentication';
 import { useMutation } from '@tanstack/react-query';
 import { useCheckout } from '@/lib/hooks/use-checkout';
+import { useUser } from '@/lib/hooks/use-user';
 
 const LoginForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const checkoutState = useCheckout();
+  const userState = useUser();
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -38,6 +40,7 @@ const LoginForm: React.FC = () => {
     onSuccess: () => {
       // Clear checkout state of old user
       checkoutState.clear();
+      userState.setIsLoggedIn(true);
     },
     onError: (error) => {
       setIsLoading(false);

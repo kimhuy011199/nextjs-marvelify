@@ -19,9 +19,11 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/constants';
 import { register } from '@/lib/actions/authentication';
 import { useMutation } from '@tanstack/react-query';
+import { useUser } from '@/lib/hooks/use-user';
 
 const RegisterForm: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const userState = useUser();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -34,6 +36,9 @@ const RegisterForm: React.FC = () => {
   const { mutate: createAccount } = useMutation({
     mutationKey: ['register'],
     mutationFn: register,
+    onSuccess: () => {
+      userState.setIsLoggedIn(true);
+    },
     onError: (error) => {
       setIsLoading(false);
       // Handle error on email field
