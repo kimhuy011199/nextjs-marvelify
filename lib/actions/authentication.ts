@@ -48,13 +48,23 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     throw new Error(supabaseAuthResponse.error?.message);
   }
 
-  if (supabaseAuthResponse?.data?.user?.id) {
+  const userId = supabaseAuthResponse.data?.user?.id;
+
+  if (userId) {
     // Create user profile
     await db.profile.create({
       data: {
-        id: supabaseAuthResponse.data.user.id,
+        id: userId,
         email: values.email,
         name: values.name,
+      },
+    });
+
+    // Create cart
+    await db.cart.create({
+      data: {
+        userId: userId,
+        items: {},
       },
     });
 
