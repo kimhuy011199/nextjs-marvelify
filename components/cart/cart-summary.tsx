@@ -14,6 +14,7 @@ import Money from '@/components/money';
 import { useCart } from '@/lib/hooks/use-cart';
 import { useRouter } from 'next/navigation';
 import { CHECKOUT_STEPS, ROUTES } from '@/lib/constants';
+import { AppStatus } from '@/lib/enums';
 
 const CartSummary: React.FC = () => {
   const cart = useCart();
@@ -52,7 +53,14 @@ const CartSummary: React.FC = () => {
           />
         </SummaryLine>
       </SummaryContent>
-      <Button onClick={handleProceedToCheckout} className="mt-4 w-full">
+      <Button
+        onClick={handleProceedToCheckout}
+        className="mt-4 w-full"
+        disabled={
+          cart.status === AppStatus.Loading ||
+          cart.status === AppStatus.Updating
+        }
+      >
         Proceed to Checkout
       </Button>
     </SummaryCard>
