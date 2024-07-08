@@ -25,6 +25,8 @@ export type ProductType = {
 };
 
 export type CartLineItemType = {
+  id?: string;
+  cartId?: string;
   productVariantId: string;
   productVariant: VariantType;
   quantity: number;

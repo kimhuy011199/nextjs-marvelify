@@ -3,6 +3,7 @@ import { Urbanist } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import ReactQueryClientProvider from '@/components/react-query-client-provider';
+import ClientInitialization from '@/components/client-initialization';
 
 const urbanist = Urbanist({ subsets: ['latin'] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
             <span>This web app is not supported for mobile view</span>
           </div>
           <Toaster />
+          <ClientInitialization />
         </ReactQueryClientProvider>
       </body>
     </html>

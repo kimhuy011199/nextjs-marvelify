@@ -1,25 +1,20 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { CartLineItemType } from '@/lib/types';
-
-export enum CartStatus {
-  Idle = 'idle',
-  Loading = 'loading',
-  Ready = 'ready',
-}
+import { AppStatus } from '@/lib/enums';
 
 interface CartStore {
   cartId: string;
   items: CartLineItemType[];
-  state: CartStatus;
-  setStatus: (status: CartStatus) => void;
-  getQuantity: (productVariantId: string) => number;
-  getTotalQuantity: () => number;
-  initialize: (items: CartLineItemType[]) => void;
+  status: AppStatus;
   setCartId: (cartId: string) => void;
+  initialize: (items: CartLineItemType[]) => void;
   addItem: (item: CartLineItemType) => void;
   removeItem: (productVariantId: string) => void;
   changeQuantityItem: (productVariantId: string, quantity: number) => void;
+  setStatus: (status: AppStatus) => void;
+  getQuantity: (productVariantId: string) => number;
+  getTotalQuantity: () => number;
   calculateSubTotal: () => number;
   clear: () => void;
 }
@@ -29,9 +24,9 @@ const useCart = create(
     (set, get) => ({
       cartId: '',
       items: [],
-      state: CartStatus.Idle,
-      setStatus: (status: CartStatus) => {
-        set({ state: status });
+      status: AppStatus.Idle,
+      setStatus: (status: AppStatus) => {
+        set({ status: status });
       },
       getQuantity: (productVariantId) => {
         const item = get().items.find(
@@ -84,7 +79,7 @@ const useCart = create(
         );
       },
       clear: () => {
-        set({ items: [], state: CartStatus.Idle, cartId: '' });
+        set({ items: [], status: AppStatus.Idle, cartId: '' });
       },
     }),
     {

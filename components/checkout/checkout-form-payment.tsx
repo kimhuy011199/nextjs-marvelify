@@ -55,7 +55,7 @@ const CheckoutFormPayment: React.FC = () => {
     onSuccess: (order) => {
       // Clear client data
       checkoutState.clear();
-      cart.clear();
+      cart.initialize([]);
       // Redirect to thank you page
       const thankYouPageUrl = `${ROUTES.THANK_YOU}/${order.id}`;
       router.replace(thankYouPageUrl);
