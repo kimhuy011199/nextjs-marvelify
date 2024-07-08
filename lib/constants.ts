@@ -13,6 +13,10 @@ export const ROUTES = {
   AUTH: '/auth',
 };
 
+export const API_ENDPOINTS = {
+  CART: '/api/cart',
+};
+
 export const CHECKOUT_STEPS = {
   ADDRESS: 'address',
   DELIVERY: 'delivery',

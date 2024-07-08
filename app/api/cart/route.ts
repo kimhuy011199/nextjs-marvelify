@@ -24,3 +24,19 @@ export async function GET() {
 
   return Response.json({ cart });
 }
+
+export async function POST(req: Request) {
+  const supabase = createServerClient();
+  const { data } = await supabase.auth.getUser();
+
+  if (!data?.user?.id) {
+    return Response.json({ message: 'User not found' });
+  }
+
+  const body = await req.json();
+  const cart = await db.cartLineItem.createMany({
+    data: body.data,
+  });
+
+  return Response.json({ cart });
+}
