@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { set, z } from 'zod';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -22,9 +23,10 @@ import ProductMaxQuantity from '@/components/products/product-max-quantity';
 import Money from '@/components/money';
 import { useToast } from '@/components/ui/use-toast';
 import { ToastAction } from '@/components/ui/toast';
-import { ROUTES } from '@/lib/constants';
+import { API_ENDPOINTS, ROUTES } from '@/lib/constants';
 import { ProductType } from '@/lib/types';
 import { useCart } from '@/lib/hooks/use-cart';
+import { AppStatus } from '@/lib/enums';
 
 interface ProductFormProps {
   product: ProductType;
@@ -62,28 +64,49 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
     setQuantity(value);
   };
 
-  const handleAddToCart = () => {
-    if (isDisabledAddToCart) {
+  const handleAddToCart = async () => {
+    if (isDisabledAddToCart || cart.status === AppStatus.Updating) {
       return;
     }
-    cart.addItem({
-      productVariantId: currentVariant.id,
-      productVariant: currentVariant,
-      quantity,
-    });
-    setQuantity(1);
-    toast({
-      title: `Added ${product.name}`,
-      description: 'Color: ' + currentVariant.name + ' - Quantity: ' + quantity,
-      action: (
-        <ToastAction
-          altText="Go to cart"
-          onClick={() => router.push(ROUTES.CART)}
-        >
-          Go to Cart
-        </ToastAction>
-      ),
-    });
+
+    try {
+      cart.setStatus(AppStatus.Updating);
+      const body = {
+        productVariantId: currentVariant.id,
+        quantity,
+        cartId: cart?.cartId,
+      };
+
+      if (cart?.cartId) {
+        const { data } = await axios.post(API_ENDPOINTS.LINES, { data: body });
+        cart.addItem({ ...body, productVariant: currentVariant, id: data.id });
+      } else {
+        cart.addItem({ ...body, productVariant: currentVariant });
+      }
+      setQuantity(1);
+      toast({
+        title: `Added ${product.name}`,
+        description:
+          'Color: ' + currentVariant.name + ' - Quantity: ' + quantity,
+        action: (
+          <ToastAction
+            altText="Go to cart"
+            onClick={() => router.push(ROUTES.CART)}
+          >
+            Go to Cart
+          </ToastAction>
+        ),
+      });
+    } catch (error) {
+      cart.setStatus(AppStatus.Error);
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    cart.setStatus(AppStatus.Resolved);
   };
 
   useEffect(() => {
@@ -174,7 +197,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ product }) => {
                 Sold out
               </Button>
             ) : (
-              <Button size="lg" type="submit" disabled={isDisabledAddToCart}>
+              <Button
+                size="lg"
+                type="submit"
+                disabled={
+                  isDisabledAddToCart || cart.status === AppStatus.Updating
+                }
+                isLoading={form.formState.isSubmitting}
+              >
                 Add to cart
               </Button>
             )}

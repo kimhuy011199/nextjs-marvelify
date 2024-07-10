@@ -15,6 +15,7 @@ export const ROUTES = {
 
 export const API_ENDPOINTS = {
   CART: '/api/cart',
+  LINES: '/api/lines',
 };
 
 export const CHECKOUT_STEPS = {
