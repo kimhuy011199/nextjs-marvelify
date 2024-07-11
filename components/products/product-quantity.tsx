@@ -2,6 +2,8 @@ import React from 'react';
 import { Minus, Plus } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import ProductMaxQuantity from '@/components/products/product-max-quantity';
+import { useCart } from '@/lib/hooks/use-cart';
+import { AppStatus } from '@/lib/enums';
 
 interface ProductQuantityProps {
   handleQuantityChange: (value: number) => void;
@@ -20,6 +22,8 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
   className,
   asTooltip,
 }) => {
+  const cartState = useCart();
+
   const handleIncrement = () => {
     if (quantity === limit) {
       return;
@@ -40,7 +44,9 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
         <button
           type="button"
           onClick={handleDecrement}
-          disabled={!limit || quantity === 1}
+          disabled={
+            !limit || quantity === 1 || cartState.status === AppStatus.Updating
+          }
           className="p-1 transition-all hover:bg-muted rounded-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
         >
           <Minus size={18} />
@@ -51,7 +57,11 @@ const ProductQuantity: React.FC<ProductQuantityProps> = ({
         <button
           type="button"
           onClick={handleIncrement}
-          disabled={!limit || quantity === limit}
+          disabled={
+            !limit ||
+            quantity === limit ||
+            cartState.status === AppStatus.Updating
+          }
           className="p-1 transition-all hover:bg-muted rounded-md disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
         >
           <Plus size={18} />

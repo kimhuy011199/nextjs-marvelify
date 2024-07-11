@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
 import ProductQuantity from '@/components/products/product-quantity';
@@ -9,7 +10,9 @@ import Money from '@/components/money';
 import { CartLineItemType } from '@/lib/types';
 import { Trash2 } from 'lucide-react';
 import { useCart } from '@/lib/hooks/use-cart';
-import { ROUTES } from '@/lib/constants';
+import { API_ENDPOINTS, ROUTES } from '@/lib/constants';
+import { AppStatus } from '@/lib/enums';
+import { useToast } from '@/components/ui/use-toast';
 
 interface CartLineItemProps {
   item: CartLineItemType;
@@ -17,7 +20,8 @@ interface CartLineItemProps {
 
 const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
   const cart = useCart();
-  const { productVariant, quantity } = item;
+  const { toast } = useToast();
+  const { productVariant, quantity, id: cartLineItemId } = item;
   const {
     previewImg,
     name,
@@ -31,12 +35,58 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
   } = productVariant;
   const productHref = `${ROUTES.PRODUCT}/${productHandle}`;
 
-  const handleDeleteItem = () => {
-    cart.removeItem(id);
+  const handleDeleteItem = async () => {
+    if (cart.status === AppStatus.Updating) {
+      return;
+    }
+
+    try {
+      cart.setStatus(AppStatus.Updating);
+      if (cart?.cartId && cartLineItemId) {
+        const endpoint = `${API_ENDPOINTS.LINES}/${cartLineItemId}`;
+        await axios.delete(endpoint);
+      }
+
+      cart.removeItem(id);
+    } catch (error) {
+      cart.setStatus(AppStatus.Error);
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    cart.setStatus(AppStatus.Resolved);
   };
 
-  const handleQuantityChange = (value: number) => {
-    cart.changeQuantityItem(id, value);
+  const handleQuantityChange = async (value: number) => {
+    if (cart.status === AppStatus.Updating) {
+      return;
+    }
+
+    try {
+      cart.setStatus(AppStatus.Updating);
+      if (cart?.cartId && cartLineItemId) {
+        const endpoint = `${API_ENDPOINTS.LINES}/${cartLineItemId}`;
+        const data = {
+          quantity: value,
+          cartLineItemId,
+        };
+        await axios.put(endpoint, { data });
+      }
+
+      cart.changeQuantityItem(id, value);
+    } catch (error) {
+      cart.setStatus(AppStatus.Error);
+      toast({
+        title: 'Something went wrong',
+        description: 'There was an error on our end. Please try again.',
+        variant: 'destructive',
+      });
+      return;
+    }
+    cart.setStatus(AppStatus.Resolved);
   };
 
   return (
@@ -58,6 +108,7 @@ const CartLineItem: React.FC<CartLineItemProps> = ({ item }) => {
           onClick={handleDeleteItem}
           variant="ghost"
           className="mr-2 p-2 text-accent-foreground rounded-md hover:text-primary hover:bg-transparent"
+          disabled={cart.status === AppStatus.Updating}
         >
           <Trash2 size={16} />
         </Button>
