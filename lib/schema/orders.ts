@@ -1,6 +1,7 @@
 import { AddressType } from '@/lib/types';
 
 export type OrderInputDataType = {
+  cartId?: string;
   email: string;
   currency: string;
   total: number;

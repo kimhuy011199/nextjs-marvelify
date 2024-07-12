@@ -11,7 +11,8 @@ export const placeOrder = async (orderData: OrderInputDataType) => {
   const supabase = createServerClient();
   const currentUser = await supabase.auth.getUser();
 
-  const { email, currency, total, subTotal, paymentMethodId } = orderData;
+  const { email, currency, total, subTotal, paymentMethodId, cartId } =
+    orderData;
   const discountCode = orderData?.discount?.code;
 
   // Create shipping address
@@ -39,6 +40,15 @@ export const placeOrder = async (orderData: OrderInputDataType) => {
       },
     },
   });
+
+  // Remove line items of user cart
+  if (currentUser?.data?.user?.id) {
+    await db.cartLineItem.deleteMany({
+      where: {
+        cartId,
+      },
+    });
+  }
 
   // Create order
   const order = await db.order.create({

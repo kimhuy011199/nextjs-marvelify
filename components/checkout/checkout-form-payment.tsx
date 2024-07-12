@@ -74,7 +74,11 @@ const CheckoutFormPayment: React.FC = () => {
     setIsLoading(true);
     const { id, createdAt, paymentMethod, ...checkoutData } =
       checkoutState.checkout;
-    const data = { ...checkoutData, paymentMethodId: formData.method };
+    const data = {
+      ...checkoutData,
+      paymentMethodId: formData.method,
+      cartId: cart.cartId,
+    };
     checkout(data);
   };
 
